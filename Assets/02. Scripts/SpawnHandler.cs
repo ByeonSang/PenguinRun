@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,7 +11,7 @@ public class SpawnHandler : MonoBehaviour
     private int currentCount; // 0
     private void Awake()
     {
-        totalSpawnerCount = GetComponentsInChildren<Spawner>().Length;
+        totalSpawnerCount = GetComponentsInChildren<ObstacleSpawner>().Length;
         obstacleTrans = new List<Transform>();
         obstacleTrans.Capacity = createSpawnCount;
     }
@@ -24,7 +23,7 @@ public class SpawnHandler : MonoBehaviour
             return false;
 
         // 총 스포너의 개수에서 
-        if(totalSpawnerCount-- <= createSpawnCount)
+        if (totalSpawnerCount-- <= createSpawnCount)
         {
             currentCount++;
             return true;
@@ -43,10 +42,5 @@ public class SpawnHandler : MonoBehaviour
     public void AddObstacleList(Transform newTrans)
     {
         obstacleTrans.Add(newTrans);
-    }
-
-    public void ClearObstacleList()
-    {
-        obstacleTrans.Clear();
     }
 }

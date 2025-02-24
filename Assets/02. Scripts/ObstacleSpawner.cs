@@ -1,16 +1,17 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class Spawner : MonoBehaviour
+public class ObstacleSpawner : MonoBehaviour
 {
     // 빈 오브젝트의 위치
     [SerializeField] private GameObject topObstacle;
     [SerializeField] private GameObject bottomObstacle;
-    [SerializeField] private GameObject[] items;
 
+    [Header("Debug Handler")]
     [SerializeField] private bool showTopObstacleDebug;
+    [SerializeField] private Color showTopColor;
+    [Space]
     [SerializeField] private bool showBottomObstacleDebug;
+    [SerializeField] private Color showBottomColor;
 
     [Header("Obstacle Info")]
     [SerializeField] private float topSpawnY;
@@ -33,12 +34,13 @@ public class Spawner : MonoBehaviour
     private void Start()
     {
         spawnHandler = GetComponentInParent<SpawnHandler>();
-        if(spawnHandler.CanSpawnObstacle())
+        if (spawnHandler.CanSpawnObstacle())
             spawnHandler.AddObstacleList(RandomSpawnObstacle());
     }
 
     public Transform RandomSpawnObstacle()
     {
+
         isBottom = (Random.Range(0, 2) == 0);
 
         GameObject go;
@@ -66,17 +68,18 @@ public class Spawner : MonoBehaviour
 
         Color origin = Gizmos.color;
 
-        Gizmos.color = Color.green;
-        if(showTopObstacleDebug)
-        {
-            Gizmos.DrawWireCube(topDrawPosition - Vector2.up * 0.5f, Vector2.one);
-        }
+        if (showTopObstacleDebug)
+            DrawObstacleDebug(topDrawPosition, Vector2.down, showTopColor);
 
         if (showBottomObstacleDebug)
-        {
-            Gizmos.DrawWireCube(bottomDrawPosition + Vector2.up * 0.5f, Vector2.one);
-        }
+            DrawObstacleDebug(bottomDrawPosition, Vector2.up, showBottomColor);
+    }
 
-        Gizmos.color = origin;
+    private void DrawObstacleDebug(Vector2 startPosition, Vector2 Direction, Color color)
+    {
+        Color originColor = Gizmos.color;
+        Gizmos.color = showTopColor;
+        Gizmos.DrawWireCube(startPosition + Direction * 0.5f, Vector2.one);
+        Gizmos.color = originColor;
     }
 }
