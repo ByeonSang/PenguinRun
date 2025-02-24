@@ -837,7 +837,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb11c3782031c89449e6981eea23f1da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  JumpForce: 10
+  JumpForce: 5
   CharacterHP: 100
   isDead: 0
 --- !u!114 &1200307153

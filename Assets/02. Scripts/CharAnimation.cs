@@ -14,8 +14,7 @@ public class CharAnimation : MonoBehaviour
 
     private void Awake()
     {
-        animator = GetComponentInChildren<Animator>();
-        Debug.Log(animator.name);
+        animator = GetComponentInChildren<Animator>();        
         if (animator == null)
         {
             Debug.LogError("Animator가 없습니다.");

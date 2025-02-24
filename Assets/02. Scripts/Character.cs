@@ -9,7 +9,7 @@ public class Character : MonoBehaviour
     protected CharAnimation charAnimation;
     protected Rigidbody2D _rigidbody;
 
-    public float JumpForce = 10f;
+    public float JumpForce = 5f;
     public float CharacterHP = 100f;
 
     public bool isDead = false;
@@ -24,7 +24,7 @@ public class Character : MonoBehaviour
     {
         //gameManager = GameManager.Instance;
 
-        charAnimation = GetComponent<CharAnimation>();
+        charAnimation = GetComponentInChildren<CharAnimation>();
         _rigidbody = GetComponent<Rigidbody2D>();
 
         if (charAnimation == null)
@@ -104,7 +104,7 @@ public class Character : MonoBehaviour
         }
         
         isGround = false;
-        Invoke(nameof(ResetJump), 3f);
+        Invoke(nameof(ResetJump), 1.5f);
     }
 
     protected void ResetJump()
