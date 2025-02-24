@@ -10,12 +10,14 @@ public class Level : MonoBehaviour
     public int obstacleCount = 0;
     public Vector3 ObstacleLastPosition = Vector3.zero;
 
+    private ItemSpawner[] itemSpawners;
     public float bgSpeed = 1f;
     public float bgTime =0f;
     BoxCollider2D collider;
     private void Awake()
     {
         collider = GetComponent<BoxCollider2D>();
+        itemSpawners = GetComponentsInChildren<ItemSpawner>();
     }
     public void Update()
     {
@@ -41,11 +43,19 @@ public class Level : MonoBehaviour
             Vector3 pos = collider.transform.position; // 현재 위치
             pos.x += widthOfBgObject * numBgCount; // 가로길이 만큼 이동
             collider.transform.position = pos; // pos 이동한 위치를 collision 위치로 삽입( 반영)
+            ResetItem();
             return;
         }
 
     }
 
-  
+    public void ResetItem() 
+    {
+        foreach(ItemSpawner spawner in itemSpawners)
+        {
+            spawner.SetItem();
+        }
+    }
+
 }
  

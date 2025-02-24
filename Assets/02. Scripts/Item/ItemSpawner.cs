@@ -12,14 +12,14 @@ public class ItemSpawner : MonoBehaviour
     private Vector3 endPosition;
     private void Start()
     {
-        startPosition = transform.localPosition;
-        endPosition = transform.localPosition + new Vector3(spawnerSizeX, 0, 0);
         SetItem();
     }
 
     public void SetItem()
     {
-        foreach(GameObject item in items)//루프 되기 이전에 아이템들을 먼저 삭제시키고 다시 생성
+        startPosition = transform.position;
+        endPosition = startPosition + new Vector3(spawnerSizeX, 0, 0);
+        foreach (GameObject item in items)//루프 되기 이전에 아이템들을 먼저 삭제시키고 다시 생성
         {
             Destroy(item);
         }
@@ -30,7 +30,7 @@ public class ItemSpawner : MonoBehaviour
         {
             if (nowPos.x <= endPosition.x)
             {
-                items.Add(Instantiate(itemPrefabs,nowPos,Quaternion.identity));
+                items.Add(Instantiate(itemPrefabs,nowPos,Quaternion.identity,transform));
             }
             nowPos.x += 1;
         }
@@ -39,7 +39,7 @@ public class ItemSpawner : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Vector3 gizmoCenter = transform.localPosition + new Vector3(spawnerSizeX/2,0f,0);
+        Vector3 gizmoCenter = transform.position + new Vector3(spawnerSizeX/2,0f,0);
         Vector3 gizmoSize = new Vector3(spawnerSizeX, 0.5f, 0f);
         Gizmos.DrawWireCube(gizmoCenter, gizmoSize);
         //
