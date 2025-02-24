@@ -8,14 +8,16 @@ public class Character : MonoBehaviour
 {
     protected CharAnimation charAnimation;
     protected Rigidbody2D _rigidbody;
+    protected CircleCollider2D _circleCollider;
 
-    public float JumpForce = 5f;
+    public float JumpForce = 8.5f;
     public float CharacterHP = 100f;
 
     public bool isDead = false;
     float deathCooldown = 0;
 
     private bool isJumping = false;
+    private bool isSliding = false;
     private bool isGround = true;
     private int jumpCount = 0;
 
@@ -26,12 +28,16 @@ public class Character : MonoBehaviour
 
         charAnimation = GetComponentInChildren<CharAnimation>();
         _rigidbody = GetComponent<Rigidbody2D>();
+        _circleCollider = GetComponent<CircleCollider2D>();
 
         if (charAnimation == null)
             Debug.LogError("Animator is null");
 
         if (_rigidbody == null)
             Debug.LogError("Rigidbody is null");
+
+        if (_circleCollider == null)
+            Debug.LogError("CircleCollider is null");
 
         _rigidbody.freezeRotation = true;
     }
@@ -58,6 +64,11 @@ public class Character : MonoBehaviour
             {
                 Jump();
             }
+
+            if (Input.GetKeyDown(KeyCode.LeftShift) && !isSliding && !isJumping)
+            {
+                Slide();
+            }
         }
     }
 
@@ -67,43 +78,33 @@ public class Character : MonoBehaviour
 
         if (isGround)
         {
-            isJumping = false;            
+            isJumping = false;
         }
-        //else if (jumpCount < 2)
-        //{
-        //    velocity.y += JumpForce;
-        //    isJumping = false;
-        //    jumpCount++;
-        //    Debug.Log("더블점프");
-        //}
-
     }
 
     protected void Jump()
-    {        
+    {
         isJumping = true;
+        isGround = false;
 
-        jumpCount++;
+        jumpCount++;               
 
-        _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, JumpForce);
-        //transform.position = new Vector2(transform.position.x, transform.position.y + JumpForce);
-        
 
         if (charAnimation != null)
         {
             if (jumpCount == 1)
-            {
-                Debug.Log("1단 점프");
+            {                
                 charAnimation.Jump();
             }
             else if (jumpCount == 2)
             {
-                Debug.Log("2단 점프");
                 charAnimation.TwoJump();
             }
         }
-        
-        isGround = false;
+
+        _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, JumpForce);
+
+
         Invoke(nameof(ResetJump), 1.5f);
     }
 
@@ -112,6 +113,23 @@ public class Character : MonoBehaviour
         isJumping = false;
         charAnimation.OffJump();
     }
+
+    private void Slide()
+    {
+        _circleCollider.radius = 0.5f;
+        isSliding = true;
+        charAnimation.Slide();
+
+        Invoke(nameof(StopSlide), 1f);
+    }
+
+    private void StopSlide()
+    {
+        _circleCollider.radius = 1f;
+        isSliding = false;
+        charAnimation.OffSlide();
+    }
+
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -141,8 +159,9 @@ public class Character : MonoBehaviour
         //    {
         //        deathCooldown = 1f;
         //    }       
+        //gameManager.GameOver();
         //}
 
-        //gameManager.GameOver();
+        
     }
 }

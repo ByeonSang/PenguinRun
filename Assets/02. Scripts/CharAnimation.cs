@@ -17,7 +17,7 @@ public class CharAnimation : MonoBehaviour
         animator = GetComponentInChildren<Animator>();        
         if (animator == null)
         {
-            Debug.LogError("Animator가 없습니다.");
+            Debug.LogError("Animator is null");
         }
     }
 
@@ -28,12 +28,12 @@ public class CharAnimation : MonoBehaviour
 
     public void Jump()
     {        
-        animator.SetBool("IsJump", true);
+        animator.SetBool(IsJump, true);
     }
 
     public void TwoJump()
     {        
-        animator.SetBool("IsTwoJump", true);
+        animator.SetBool(IsTwoJump, true);
     }
 
     public void OffJump()
@@ -44,7 +44,12 @@ public class CharAnimation : MonoBehaviour
 
     public void Slide()
     {
-        animator.SetTrigger(IsSlide);
+        animator.SetBool(IsSlide, true);
+    }
+
+    public void OffSlide()
+    {
+        animator.SetBool(IsSlide, false);   
     }
 
     public void Dead()
