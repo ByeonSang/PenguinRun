@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,13 +8,13 @@ public class SpawnHandler : MonoBehaviour
 
     [SerializeField] private int createSpawnCount; // 3
 
-    public List<Transform> ObstacleTrans { get; set; }
+    public List<ObstacleSpawner> ObstacleSpawner { get; set; }
     private int currentCount; // 0
     private void Awake()
     {
-        totalSpawnerCount = GetComponentsInChildren<ObstacleSpawner>().Length;
-        ObstacleTrans = new List<Transform>();
-        ObstacleTrans.Capacity = createSpawnCount;
+        ResetObstacleList();
+        ObstacleSpawner = new List<ObstacleSpawner>();
+        ObstacleSpawner.Capacity = createSpawnCount;
     }
 
     public bool CanSpawnObstacle()
@@ -41,11 +42,21 @@ public class SpawnHandler : MonoBehaviour
 
     public void ResetObstacleList()
     {
+        totalSpawnerCount = GetComponentsInChildren<ObstacleSpawner>().Length;
         currentCount = 0;
-        foreach (var trans in ObstacleTrans)
+
+        StartCoroutine(ResetObstacle());
+    }
+
+    private IEnumerator ResetObstacle()
+    {
+        foreach(var obstacle in ObstacleSpawner)
         {
-            trans.gameObject.SetActive(false);
-            trans.gameObject.SetActive(true);
+            if(CanSpawnObstacle())
+            {
+                obstacle.RandomSpawnObstacle();
+                yield return null;
+            }
         }
     }
 }

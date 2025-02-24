@@ -34,20 +34,16 @@ public class ObstacleSpawner : MonoBehaviour
     private void Start()
     {
         spawnHandler = GetComponentInParent<SpawnHandler>();
-    }
-
-    private void OnEnable()
-    {
         CreateObstacle();
     }
 
     public void CreateObstacle()
     {
         if (spawnHandler.CanSpawnObstacle())
-            spawnHandler.ObstacleTrans.Add(RandomSpawnObstacle());
+            spawnHandler.ObstacleSpawner.Add(RandomSpawnObstacle());
     }
 
-    public Transform RandomSpawnObstacle()
+    public ObstacleSpawner RandomSpawnObstacle()
     {
 
         isBottom = (Random.Range(0, 2) == 0);
@@ -66,7 +62,7 @@ public class ObstacleSpawner : MonoBehaviour
             go.transform.localPosition += (Vector3)TopSpawnPosition;
         }
 
-        return go.transform;
+        return this;
     }
 
     private void OnDrawGizmos()
