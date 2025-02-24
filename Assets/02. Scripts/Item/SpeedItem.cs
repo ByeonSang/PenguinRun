@@ -8,6 +8,11 @@ public class SpeedItem : BaseItem
 
     public static Coroutine speedCo = null;
 
+    public override void Init()
+    {
+        base.Init();
+        ItemID = 3;
+    }
     public override void Use()
     {
         base.Use();
