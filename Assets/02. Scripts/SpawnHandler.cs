@@ -8,10 +8,13 @@ public class SpawnHandler : MonoBehaviour
 
     [SerializeField] private int createSpawnCount; // 3
 
+    private List<Transform> obstacleTrans;
     private int currentCount; // 0
     private void Awake()
     {
         totalSpawnerCount = GetComponentsInChildren<Spawner>().Length;
+        obstacleTrans = new List<Transform>();
+        obstacleTrans.Capacity = createSpawnCount;
     }
 
     public bool CanSpawnObstacle()
@@ -35,5 +38,15 @@ public class SpawnHandler : MonoBehaviour
         }
 
         return false;
+    }
+
+    public void AddObstacleList(Transform newTrans)
+    {
+        obstacleTrans.Add(newTrans);
+    }
+
+    public void ClearObstacleList()
+    {
+        obstacleTrans.Clear();
     }
 }
