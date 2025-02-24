@@ -6,12 +6,17 @@ using UnityEngine;
 
 public class Level : MonoBehaviour
 {
-    public int numBgCount = 1; // 배경화면 오브젝트만큼 생성
+    public int numBgCount = 2; // 배경화면 오브젝트만큼 생성
     public int obstacleCount = 0;
     public Vector3 ObstacleLastPosition = Vector3.zero;
 
     public float bgSpeed = 1f;
     public float bgTime =0f;
+    BoxCollider2D collider;
+    private void Awake()
+    {
+        collider = GetComponent<BoxCollider2D>();
+    }
     public void Update()
     {
 
@@ -21,7 +26,7 @@ public class Level : MonoBehaviour
             bgTime = 0;
         }
         
-        transform.position += Vector3.right * bgSpeed * Time.deltaTime;
+        transform.position += Vector3.left * bgSpeed * Time.deltaTime;
         bgTime += 1f *Time.deltaTime;
 
     }
@@ -29,21 +34,18 @@ public class Level : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
        
-        if (collision.CompareTag("Background"))
+        if (collision.CompareTag("Looper"))
         {
-            float widthOfBgObject = ((BoxCollider2D)collision).size.x; // 배경화면 가로 길이
-            Vector3 pos = collision.transform.position; // 현재 위치
+           
+            float widthOfBgObject = collider.size.x; // 배경화면 가로 길이
+            Vector3 pos = collider.transform.position; // 현재 위치
             pos.x += widthOfBgObject * numBgCount; // 가로길이 만큼 이동
-            collision.transform.position = pos; // pos 이동한 위치를 collision 위치로 삽입( 반영)
+            collider.transform.position = pos; // pos 이동한 위치를 collision 위치로 삽입( 반영)
             return;
         }
 
     }
 
-    public void Spawner()
-    {
-        GameObject[] TopObstacle;
-        GameObject[] BottomObstacle;
-    }
+  
 }
  
