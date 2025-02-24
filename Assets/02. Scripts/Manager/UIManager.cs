@@ -24,8 +24,6 @@ public class UIManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        // SceneManager.LoadScene("StartScene");
         UpdateUI();
     }
 
@@ -42,5 +40,15 @@ public class UIManager : MonoBehaviour
         
         bestScoreText.text = ScoreManager.Instance.BestScore.ToString();
         resultBestScoreText.text = bestScoreText.text;
+    }
+
+    public void Restart()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void Title()
+    {
+        SceneManager.LoadScene("StartScene");
     }
 }
