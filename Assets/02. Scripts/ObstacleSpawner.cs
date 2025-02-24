@@ -34,8 +34,17 @@ public class ObstacleSpawner : MonoBehaviour
     private void Start()
     {
         spawnHandler = GetComponentInParent<SpawnHandler>();
+    }
+
+    private void OnEnable()
+    {
+        CreateObstacle();
+    }
+
+    public void CreateObstacle()
+    {
         if (spawnHandler.CanSpawnObstacle())
-            spawnHandler.AddObstacleList(RandomSpawnObstacle());
+            spawnHandler.ObstacleTrans.Add(RandomSpawnObstacle());
     }
 
     public Transform RandomSpawnObstacle()

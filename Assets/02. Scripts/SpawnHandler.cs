@@ -7,13 +7,13 @@ public class SpawnHandler : MonoBehaviour
 
     [SerializeField] private int createSpawnCount; // 3
 
-    private List<Transform> obstacleTrans;
+    public List<Transform> ObstacleTrans { get; set; }
     private int currentCount; // 0
     private void Awake()
     {
         totalSpawnerCount = GetComponentsInChildren<ObstacleSpawner>().Length;
-        obstacleTrans = new List<Transform>();
-        obstacleTrans.Capacity = createSpawnCount;
+        ObstacleTrans = new List<Transform>();
+        ObstacleTrans.Capacity = createSpawnCount;
     }
 
     public bool CanSpawnObstacle()
@@ -39,8 +39,13 @@ public class SpawnHandler : MonoBehaviour
         return false;
     }
 
-    public void AddObstacleList(Transform newTrans)
+    public void ResetObstacleList()
     {
-        obstacleTrans.Add(newTrans);
+        currentCount = 0;
+        foreach (var trans in ObstacleTrans)
+        {
+            trans.gameObject.SetActive(false);
+            trans.gameObject.SetActive(true);
+        }
     }
 }
