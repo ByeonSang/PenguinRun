@@ -4,11 +4,12 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
 
-//점수 반영
-//게임 오버창 띄우기
 public class UIManager : MonoBehaviour
 {
     public TextMeshProUGUI scoreText;
+    public TextMeshProUGUI bestScoreText;
+    public TextMeshProUGUI resultScoreText;
+    public TextMeshProUGUI resultBestScoreText;
     public GameObject gameOverUI;
     // public Animator animator;
     // public ScoreManager scoreManager;
@@ -23,19 +24,23 @@ public class UIManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            scoreText.text = ScoreManager.Instance.Score.ToString();
-            gameOverUI.SetActive(true); // 오브젝트 활성화 (bool값)
-        }
-
         // SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        // SceneManager.LoadScene("StartScene");
+        UpdateUI();
     }
 
     public void GameOver()
     {
-        scoreText.gameObject.SetActive(true);
+        ScoreManager.Instance.SaveScore();
+        gameOverUI.SetActive(true);
+    }
 
-        ScoreManager.Instance.AddScore(1);
+    public void UpdateUI()
+    {
+        scoreText.text = ScoreManager.Instance.Score.ToString();
+        resultScoreText.text = scoreText.text;
+        
+        bestScoreText.text = ScoreManager.Instance.BestScore.ToString();
+        resultBestScoreText.text = bestScoreText.text;
     }
 }
