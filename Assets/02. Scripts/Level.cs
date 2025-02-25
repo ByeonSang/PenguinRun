@@ -36,16 +36,16 @@ public class Level : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (isFirst)
-        {
-            isFirst = false;
-            Destroy(gameObject);
-            return;
-
-        }
+      
         if (collision.CompareTag("Looper"))
         {
-           
+            if (isFirst)
+            {
+                isFirst = false;
+                Destroy(gameObject);
+                return;
+
+            }
             float widthOfBgObject = collider.size.x; // ���ȭ�� ���� ����
             Vector3 pos = collider.transform.position; // ���� ��ġ
             pos.x += widthOfBgObject * numBgCount; // ���α��� ��ŭ �̵�
