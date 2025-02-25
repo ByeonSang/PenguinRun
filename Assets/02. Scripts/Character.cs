@@ -23,7 +23,7 @@ public class Character : MonoBehaviour
 
     ////피격 시 무적
     //private bool isInvincible = false; // 무적 상태
-    //private float invincibleDuration = 2f; // 무적 지속 시간
+    //public float invincibleDuration = 1.5f; // 무적 지속 시간
     //private float invincibleTime = 0f;    // 무적 시작 시간
 
 
@@ -149,7 +149,7 @@ public class Character : MonoBehaviour
         if (isDead) return;
 
 
-        if (collision.gameObject.CompareTag("Background"))
+        if (collision.gameObject.CompareTag("Ground"))
         {
             isGround = true;
             isJumping = false;
@@ -157,7 +157,7 @@ public class Character : MonoBehaviour
         }
 
         // 장애물 닿을시 체력 감소
-        //if (collision.gameObject.CompareTag(""))
+        //if (collision.gameObject.CompareTag("Obstacle"))
         //{
         //    if (!isInvincible)
         //    {
