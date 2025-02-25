@@ -60,14 +60,19 @@ public class Character : MonoBehaviour
         }
         else
         {
-            if (Input.GetKeyDown(KeyCode.Space) && jumpCount < 2)
+            if (Input.GetKeyDown(KeyCode.Space) && jumpCount < 2 && !isSliding)
             {
                 Jump();
             }
 
-            if (Input.GetKeyDown(KeyCode.LeftShift) && !isSliding && !isJumping)
+            if (Input.GetKey(KeyCode.LeftShift) && !isJumping)
             {
                 Slide();
+            }
+
+            if (Input.GetKeyUp(KeyCode.LeftShift))
+            {
+                StopSlide();
             }
         }
     }
@@ -87,13 +92,13 @@ public class Character : MonoBehaviour
         isJumping = true;
         isGround = false;
 
-        jumpCount++;               
+        jumpCount++;
 
 
         if (charAnimation != null)
         {
             if (jumpCount == 1)
-            {                
+            {
                 charAnimation.Jump();
             }
             else if (jumpCount == 2)
@@ -103,7 +108,6 @@ public class Character : MonoBehaviour
         }
 
         _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, JumpForce);
-
 
         Invoke(nameof(ResetJump), 1.5f);
     }
@@ -119,8 +123,6 @@ public class Character : MonoBehaviour
         _circleCollider.radius = 0.5f;
         isSliding = true;
         charAnimation.Slide();
-
-        Invoke(nameof(StopSlide), 1f);
     }
 
     private void StopSlide()
@@ -136,32 +138,35 @@ public class Character : MonoBehaviour
         if (isDead) return;
 
 
-        //if (collision.gameObject.CompareTag("Ground"))
-        //{
-        //    isGround = true;
-        //    isJumping = false;
-        //    jumpCount = 0;
-        //}
+        if (collision.gameObject.CompareTag("Background"))
+        {
+            isGround = true;
+            isJumping = false;
+            jumpCount = 0;
+        }
 
-        //if (CharacterHP > 0)
+        // 장애물 닿을시 체력 감소
+        //if (collision.gameObject.CompareTag(""))
         //{
-        //    CharacterHP -= 20f;
-        //    if (charAnimation != null)
+        //    if (CharacterHP > 0)
         //    {
-        //        charAnimation.Damage();
+        //        CharacterHP -= 20f;
+        //        if (charAnimation != null)
+        //        {
+        //            charAnimation.Damage();
+        //        }
+        //    }
+        //    else
+        //    {
+        //        isDead = true;                
+        //        if (charAnimation != null)
+        //        {
+        //            charAnimation.Dead();
+        //            deathCooldown = 1f;
+        //        }
+        //        gameManager.GameOver();
         //    }
         //}
-        //else
-        //{
-        //    isDead = true;
-        //    charAnimation.Dead();
-        //    if (charAnimation != null)
-        //    {
-        //        deathCooldown = 1f;
-        //    }       
-        //gameManager.GameOver();
-        //}
 
-        
     }
 }
