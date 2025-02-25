@@ -19,12 +19,12 @@ public class BaseItem : MonoBehaviour, IUseable
     {
 
     }
-    protected virtual void OnCollisionEnter2D(Collision2D collision) // 플레이어한테 이 로직 넘겨 주기
-    {
-        if (LayerMask.NameToLayer(collision.gameObject.name).Equals(LayerMask.NameToLayer("Player")))
-        {
-            Use();
-            Destroy(this);//넘겨줬을 때 collision.gameObject로 변경
-        }
-    }
+    //protected virtual void OnCollisionEnter2D(Collision2D collision) // 플레이어한테 이 로직 넘겨 주기
+    //{
+    //    if (LayerMask.NameToLayer(collision.gameObject.name).Equals(LayerMask.NameToLayer("Player")))
+    //    {
+    //        Use();
+    //        Destroy(this);//넘겨줬을 때 collision.gameObject로 변경
+    //    }
+    //}
 }
