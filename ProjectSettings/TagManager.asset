@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Background
   - Looper
+  - Item
   layers:
   - Default
   - TransparentFX

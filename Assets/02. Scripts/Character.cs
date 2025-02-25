@@ -190,7 +190,9 @@ public class Character : MonoBehaviour
     {
         if (collision.CompareTag("Item"))
         {
-
+            IUseable item = collision.gameObject.GetComponent<IUseable>();
+            item.Use();
+            Destroy(collision.gameObject);
         }
     }
 }

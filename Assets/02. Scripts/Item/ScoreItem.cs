@@ -15,6 +15,6 @@ public class ScoreItem : BaseItem
     public override void Use()
     {
         base.Use();
-        scoreManager.AddScore(value);   
+        //scoreManager.AddScore(value);   
     }
 }
