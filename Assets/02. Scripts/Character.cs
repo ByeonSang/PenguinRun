@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEditor.Build.Content;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Character : MonoBehaviour
 {
     protected CharAnimation charAnimation;
     protected Rigidbody2D _rigidbody;
-    protected CircleCollider2D _circleCollider;
+    protected CircleCollider2D _circleCollider;    
 
     public float JumpForce = 8.5f;
     public float CharacterHP = 100f;
@@ -21,10 +22,14 @@ public class Character : MonoBehaviour
     private bool isGround = true;
     private int jumpCount = 0;
 
-    ////피격 시 무적
-    //private bool isInvincible = false; // 무적 상태
-    //public float invincibleDuration = 1.5f; // 무적 지속 시간
-    //private float invincibleTime = 0f;    // 무적 시작 시간
+    //피격 시 무적
+    private bool isInvincible = false; // 무적 상태
+    public float invincibleDuration = 1.5f; // 무적 지속 시간
+    private float invincibleTime = 0f;    // 무적 시작 시간
+
+    public Slider HealthSlider;
+    public float maxHealth = 100f;
+    private float currentHealth;
 
 
     private void Start()
@@ -45,6 +50,9 @@ public class Character : MonoBehaviour
             Debug.LogError("CircleCollider is null");
 
         _rigidbody.freezeRotation = true;
+
+        currentHealth = maxHealth;
+        UpdateHpBar();
     }
 
     private void Update()
@@ -80,11 +88,11 @@ public class Character : MonoBehaviour
                 StopSlide();
             }
 
-            // 피격 시 2초 후 무적해제
-            //if(isInvincible && (Time.time - invincibleTime) >= invincibleDuration)
-            //{
-            //    isInvincible = false;
-            //}
+            // 피격 시 1.5초 후 무적해제
+            if (isInvincible && (Time.time - invincibleTime) >= invincibleDuration)
+            {
+                isInvincible = false;
+            }
         }
     }
 
@@ -149,26 +157,25 @@ public class Character : MonoBehaviour
         if (isDead) return;
 
 
-        if (collision.gameObject.CompareTag("Ground"))
-        {
-            isGround = true;
-            isJumping = false;
-            jumpCount = 0;
-        }
+        //if (collision.gameObject.CompareTag("Ground"))
+        //{
+        //    isGround = true;
+        //    isJumping = false;
+        //    jumpCount = 0;
+        //}
 
-        // 장애물 닿을시 체력 감소
-        //if (collision.gameObject.CompareTag("Obstacle"))
+        //// 장애물 닿을시 체력 감소
+        //if (collision.gameObject.CompareTag(""))
         //{
         //    if (!isInvincible)
         //    {
         //        if (CharacterHP > 0)
         //        {
-        //            CharacterHP -= 20f;
+        //            TakeDamage(20);
         //            if (charAnimation != null)
         //            {
         //                charAnimation.Damage();
         //            }
-
         //            isInvincible = true;
         //            invincibleTime = Time.time;
         //        }
@@ -180,9 +187,9 @@ public class Character : MonoBehaviour
         //                charAnimation.Dead();
         //                deathCooldown = 1f;
         //            }
-        //            gameManager.GameOver();
+        //            //gameManager.GameOver();
         //        }
-        //    }            
+        //    }
         //}
     }
 
@@ -194,5 +201,25 @@ public class Character : MonoBehaviour
             item.Use();
             Destroy(collision.gameObject);
         }
+    }
+
+    public void TakeDamage(float damage)
+    {
+        currentHealth -= damage;
+        currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
+        UpdateHpBar();
+    }
+
+
+    public void Heal(float healAmout)
+    {
+        currentHealth += healAmout;
+        currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
+        UpdateHpBar();
+    }
+
+    private void UpdateHpBar()
+    {
+        HealthSlider.value = currentHealth / maxHealth;
     }
 }
