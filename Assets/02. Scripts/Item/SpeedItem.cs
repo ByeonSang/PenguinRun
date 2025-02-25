@@ -5,11 +5,13 @@ using UnityEngine;
 public class SpeedItem : BaseItem
 {
     [SerializeField] private float speed;
-
+    private Level level;
+    //private Player player;
     public static Coroutine speedCo = null;
 
     public override void Init()
     {
+        level = FindObjectOfType<Level>();
         base.Init();
         ItemID = 3;
     }
@@ -31,7 +33,7 @@ public class SpeedItem : BaseItem
     private IEnumerator SpeedingCo(float speed)
     {
         //player.IsSpeeding = true;
-        //player.Speed += speed;
+        level.bgSpeed += speed;
         yield return new WaitForSeconds(4);
         EndBuffEffect();
     }
@@ -39,7 +41,7 @@ public class SpeedItem : BaseItem
     private void EndBuffEffect()
     {
         //player.IsSpeeding = false;
-        //player.Speed -= speed;
+        level.bgSpeed -= speed;
         speedCo = null;
         Destroy(this.gameObject);
     }

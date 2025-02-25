@@ -6,23 +6,26 @@ using UnityEngine;
 
 public class Level : MonoBehaviour
 {
-    public int numBgCount = 2; // ¹è°æÈ­¸é ¿ÀºêÁ§Æ®¸¸Å­ »ý¼º
+    public int numBgCount = 2; // ï¿½ï¿½ï¿½È­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½Å­ ï¿½ï¿½ï¿½ï¿½
     public int obstacleCount = 0;
     public Vector3 ObstacleLastPosition = Vector3.zero;
 
+    private ItemSpawner[] itemSpawners;
     public float bgSpeed = 1f;
     public float bgTime =0f;
     BoxCollider2D collider;
+    public bool isFirst;
     private void Awake()
     {
         collider = GetComponent<BoxCollider2D>();
+        itemSpawners = GetComponentsInChildren<ItemSpawner>();
     }
     public void Update()
     {
 
-        if ((bgTime >= 5)) // bgTimeÀÌ 5ÀÌ»óÀÌ¸é
+        if ((bgTime >= 5)) // bgTimeï¿½ï¿½ 5ï¿½Ì»ï¿½ï¿½Ì¸ï¿½
         {
-            bgSpeed += 0.5f; // bground speed 0.5  »ó½Â
+            bgSpeed += 0.5f; // bground speed 0.5  ï¿½ï¿½ï¿½
             bgTime = 0;
         }
         
@@ -33,20 +36,33 @@ public class Level : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (isFirst)
+        {
+            isFirst = false;
+            Destroy(gameObject);
+            return;
 
-       
+        }
         if (collision.CompareTag("Looper"))
         {
            
-            float widthOfBgObject = collider.size.x; // ¹è°æÈ­¸é °¡·Î ±æÀÌ
-            Vector3 pos = collider.transform.position; // ÇöÀç À§Ä¡
-            pos.x += widthOfBgObject * numBgCount; // °¡·Î±æÀÌ ¸¸Å­ ÀÌµ¿
-            collider.transform.position = pos; // pos ÀÌµ¿ÇÑ À§Ä¡¸¦ collision À§Ä¡·Î »ðÀÔ( ¹Ý¿µ)
+            float widthOfBgObject = collider.size.x; // ï¿½ï¿½ï¿½È­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+            Vector3 pos = collider.transform.position; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡
+            pos.x += widthOfBgObject * numBgCount; // ï¿½ï¿½ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½Å­ ï¿½Ìµï¿½
+            collider.transform.position = pos; // pos ï¿½Ìµï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ collision ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½( ï¿½Ý¿ï¿½)
+            ResetItem();
             return;
         }
 
     }
 
-  
+    public void ResetItem() 
+    {
+        foreach(ItemSpawner spawner in itemSpawners)
+        {
+            spawner.SetItem();
+        }
+    }
+
 }
  
