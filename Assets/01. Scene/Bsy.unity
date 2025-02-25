@@ -228,7 +228,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   musicSounds:
-  - name: Theme
+  - name: Background
     clip: {fileID: 8300000, guid: 1a596bb0196e80a468ad5a86e5dd6105, type: 3}
   sfxSounds:
   - name: Jump
