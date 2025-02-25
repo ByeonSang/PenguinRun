@@ -16,16 +16,12 @@ public class AudioManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
+            PlayMusic("Background");
         }
         else
         {
             Destroy(gameObject);
         }
-    }
-
-    private void Start()
-    {
-        PlayMusic("Theme");
     }
 
     public void PlayMusic(string name)
@@ -38,6 +34,7 @@ public class AudioManager : MonoBehaviour
         else
         {
             musicSource.clip = s.clip;
+            musicSource.loop = true;
             musicSource.Play();
         }
     }
