@@ -1,15 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEditor.Build.Content;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class Character : MonoBehaviour
 {
     protected CharAnimation charAnimation;
     protected Rigidbody2D _rigidbody;
-    protected CircleCollider2D _circleCollider;    
+    protected CircleCollider2D _circleCollider;
 
     public float JumpForce = 8.5f;
     public float CharacterHP = 100f;
@@ -30,6 +27,9 @@ public class Character : MonoBehaviour
     public Slider HealthSlider;
     public float maxHealth = 100f;
     private float currentHealth;
+
+    public Button JumpButton;
+    public Button SlideButton;
 
 
     private void Start()
@@ -53,6 +53,9 @@ public class Character : MonoBehaviour
 
         currentHealth = maxHealth;
         UpdateHpBar();
+        
+        JumpButton.onClick.AddListener(JumpButtonClick);
+        SlideButton.onClick.AddListener(SlideButtonClick);
     }
 
     private void Update()
@@ -157,15 +160,15 @@ public class Character : MonoBehaviour
         if (isDead) return;
 
 
-        //if (collision.gameObject.CompareTag("Ground"))
-        //{
-        //    isGround = true;
-        //    isJumping = false;
-        //    jumpCount = 0;
-        //}
+        if (collision.gameObject.CompareTag("Background"))
+        {
+            isGround = true;
+            isJumping = false;
+            jumpCount = 0;
+        }
 
         //// 장애물 닿을시 체력 감소
-        //if (collision.gameObject.CompareTag(""))
+        //if (collision.gameObject.CompareTag("Obstacle"))
         //{
         //    if (!isInvincible)
         //    {
@@ -203,6 +206,7 @@ public class Character : MonoBehaviour
         }
     }
 
+    // 데미지 입었을 때
     public void TakeDamage(float damage)
     {
         currentHealth -= damage;
@@ -211,6 +215,7 @@ public class Character : MonoBehaviour
     }
 
 
+    // 체력회복
     public void Heal(float healAmout)
     {
         currentHealth += healAmout;
@@ -218,8 +223,26 @@ public class Character : MonoBehaviour
         UpdateHpBar();
     }
 
+    // HP Bar 업데이트
     private void UpdateHpBar()
     {
         HealthSlider.value = currentHealth / maxHealth;
+    }
+
+    // 점프 버튼클릭
+    void JumpButtonClick()
+    {
+        if (jumpCount < 2 && !isSliding)
+            Jump();
+    }
+
+    // 슬라이드 버튼클릭
+    void SlideButtonClick()
+    {
+        Debug.Log("슬라이드버튼");
+        if (!isSliding && !isJumping)
+            Slide();
+
+        Invoke(nameof(StopSlide),1f);
     }
 }
