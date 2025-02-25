@@ -21,6 +21,11 @@ public class Character : MonoBehaviour
     private bool isGround = true;
     private int jumpCount = 0;
 
+    ////피격 시 무적
+    //private bool isInvincible = false; // 무적 상태
+    //private float invincibleDuration = 2f; // 무적 지속 시간
+    //private float invincibleTime = 0f;    // 무적 시작 시간
+
 
     private void Start()
     {
@@ -74,6 +79,12 @@ public class Character : MonoBehaviour
             {
                 StopSlide();
             }
+
+            // 피격 시 2초 후 무적해제
+            //if(isInvincible && (Time.time - invincibleTime) >= invincibleDuration)
+            //{
+            //    isInvincible = false;
+            //}
         }
     }
 
@@ -148,25 +159,30 @@ public class Character : MonoBehaviour
         // 장애물 닿을시 체력 감소
         //if (collision.gameObject.CompareTag(""))
         //{
-        //    if (CharacterHP > 0)
+        //    if (!isInvincible)
         //    {
-        //        CharacterHP -= 20f;
-        //        if (charAnimation != null)
+        //        if (CharacterHP > 0)
         //        {
-        //            charAnimation.Damage();
-        //        }
-        //    }
-        //    else
-        //    {
-        //        isDead = true;                
-        //        if (charAnimation != null)
-        //        {
-        //            charAnimation.Dead();
-        //            deathCooldown = 1f;
-        //        }
-        //        gameManager.GameOver();
-        //    }
-        //}
+        //            CharacterHP -= 20f;
+        //            if (charAnimation != null)
+        //            {
+        //                charAnimation.Damage();
+        //            }
 
+        //            isInvincible = true;
+        //            invincibleTime = Time.time;
+        //        }
+        //        else
+        //        {
+        //            isDead = true;
+        //            if (charAnimation != null)
+        //            {
+        //                charAnimation.Dead();
+        //                deathCooldown = 1f;
+        //            }
+        //            gameManager.GameOver();
+        //        }
+        //    }            
+        //}
     }
 }

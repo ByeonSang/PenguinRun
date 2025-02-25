@@ -24,7 +24,7 @@ public class CharAnimation : MonoBehaviour
     public void Damage()
     {
         animator.SetTrigger(IsDamage);
-    }
+    }    
 
     public void Jump()
     {        
