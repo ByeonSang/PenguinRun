@@ -1,8 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEditor.Build.Content;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class Character : MonoBehaviour
 {
@@ -21,10 +19,17 @@ public class Character : MonoBehaviour
     private bool isGround = true;
     private int jumpCount = 0;
 
-    ////피격 시 무적
-    //private bool isInvincible = false; // 무적 상태
-    //public float invincibleDuration = 1.5f; // 무적 지속 시간
-    //private float invincibleTime = 0f;    // 무적 시작 시간
+    //피격 시 무적
+    private bool isInvincible = false; // 무적 상태
+    public float invincibleDuration = 1.5f; // 무적 지속 시간
+    private float invincibleTime = 0f;    // 무적 시작 시간
+
+    public Slider HealthSlider;
+    public float maxHealth = 100f;
+    private float currentHealth;
+
+    public Button JumpButton;
+    public Button SlideButton;
 
 
     private void Start()
@@ -45,6 +50,12 @@ public class Character : MonoBehaviour
             Debug.LogError("CircleCollider is null");
 
         _rigidbody.freezeRotation = true;
+
+        currentHealth = maxHealth;
+        UpdateHpBar();
+        
+        JumpButton.onClick.AddListener(JumpButtonClick);
+        SlideButton.onClick.AddListener(SlideButtonClick);
     }
 
     private void Update()
@@ -80,11 +91,11 @@ public class Character : MonoBehaviour
                 StopSlide();
             }
 
-            // 피격 시 2초 후 무적해제
-            //if(isInvincible && (Time.time - invincibleTime) >= invincibleDuration)
-            //{
-            //    isInvincible = false;
-            //}
+            // 피격 시 1.5초 후 무적해제
+            if (isInvincible && (Time.time - invincibleTime) >= invincibleDuration)
+            {
+                isInvincible = false;
+            }
         }
     }
 
@@ -149,26 +160,25 @@ public class Character : MonoBehaviour
         if (isDead) return;
 
 
-        if (collision.gameObject.CompareTag("Ground"))
-        {
-            isGround = true;
-            isJumping = false;
-            jumpCount = 0;
-        }
+        //if (collision.gameObject.CompareTag("Ground"))
+        //{
+        //    isGround = true;
+        //    isJumping = false;
+        //    jumpCount = 0;
+        //}
 
-        // 장애물 닿을시 체력 감소
+        //// 장애물 닿을시 체력 감소
         //if (collision.gameObject.CompareTag("Obstacle"))
         //{
         //    if (!isInvincible)
         //    {
         //        if (CharacterHP > 0)
         //        {
-        //            CharacterHP -= 20f;
+        //            TakeDamage(20);
         //            if (charAnimation != null)
         //            {
         //                charAnimation.Damage();
         //            }
-
         //            isInvincible = true;
         //            invincibleTime = Time.time;
         //        }
@@ -180,9 +190,9 @@ public class Character : MonoBehaviour
         //                charAnimation.Dead();
         //                deathCooldown = 1f;
         //            }
-        //            gameManager.GameOver();
+        //            //gameManager.GameOver();
         //        }
-        //    }            
+        //    }
         //}
     }
 
@@ -194,5 +204,45 @@ public class Character : MonoBehaviour
             item.Use();
             Destroy(collision.gameObject);
         }
+    }
+
+    // 데미지 입었을 때
+    public void TakeDamage(float damage)
+    {
+        currentHealth -= damage;
+        currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
+        UpdateHpBar();
+    }
+
+
+    // 체력회복
+    public void Heal(float healAmout)
+    {
+        currentHealth += healAmout;
+        currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
+        UpdateHpBar();
+    }
+
+    // HP Bar 업데이트
+    private void UpdateHpBar()
+    {
+        HealthSlider.value = currentHealth / maxHealth;
+    }
+
+    // 점프 버튼클릭
+    void JumpButtonClick()
+    {
+        if (jumpCount < 2 && !isSliding)
+            Jump();
+    }
+
+    // 슬라이드 버튼클릭
+    void SlideButtonClick()
+    {
+        Debug.Log("슬라이드버튼");
+        if (!isSliding && !isJumping)
+            Slide();
+
+        Invoke(nameof(StopSlide),1f);
     }
 }
