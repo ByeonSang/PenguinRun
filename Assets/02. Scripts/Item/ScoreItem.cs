@@ -5,14 +5,16 @@ using UnityEngine;
 public class ScoreItem : BaseItem
 {
     [SerializeField] private int value;
+    private ScoreManager scoreManager;
     public override void Init()
     {
         base.Init();
+        scoreManager = FindObjectOfType<ScoreManager>();
         ItemID = 0;
     }
     public override void Use()
     {
         base.Use();
-        //player.score += value;      
+        scoreManager.AddScore(value);   
     }
 }

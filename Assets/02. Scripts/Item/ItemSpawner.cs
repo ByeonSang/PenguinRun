@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class ItemSpawner : MonoBehaviour
 {
-    [SerializeField] private int spawnerType; //0번이면 젤리(스코어)만 생성, 1번이면 아이템 랜덤 생성
     [SerializeField] private List<GameObject> items = new List<GameObject>();
-    private GameObject thisPositionItem = null;
+    [SerializeField] private GameObject itemPrefabs;
 
+    [SerializeField] private float spawnerSizeX = 0;
+    private Vector3 startPosition;
+    private Vector3 endPosition;
     private void Start()
     {
         SetItem();
@@ -15,29 +17,31 @@ public class ItemSpawner : MonoBehaviour
 
     public void SetItem()
     {
-        if (thisPositionItem == null)
+        startPosition = transform.position;
+        endPosition = startPosition + new Vector3(spawnerSizeX, 0, 0);
+        foreach (GameObject item in items)//루프 되기 이전에 아이템들을 먼저 삭제시키고 다시 생성
         {
-            if (spawnerType == 0)//이 자리에 해당 아이템이 꼭 와야하는 경우에는 list에 그 아이템 하나만 넣고 spawnerType을 0으로 만들면 됨
-            {
-                GameObject item = Instantiate(items[0], this.transform);
-            }
-            else
-            {
-                int randomItemIndex = Random.Range(0, items.Count);
-                Debug.Log(randomItemIndex);
-                GameObject item = Instantiate(items[randomItemIndex], this.transform);
-            }
+            Destroy(item);
         }
-        else if (thisPositionItem != null)
+        items.Clear();
+
+        Vector3 nowPos = startPosition;
+        while (nowPos.x <= endPosition.x)
         {
-            return;
+            if (nowPos.x <= endPosition.x)
+            {
+                items.Add(Instantiate(itemPrefabs,nowPos,Quaternion.identity,transform));
+            }
+            nowPos.x += 1;
         }
     }
 
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Vector3 gizmoSize = new Vector3(0.5f, 0.5f, 0f);
-        Gizmos.DrawWireCube(transform.position, gizmoSize);
+        Vector3 gizmoCenter = transform.position + new Vector3(spawnerSizeX/2,0f,0);
+        Vector3 gizmoSize = new Vector3(spawnerSizeX, 0.5f, 0f);
+        Gizmos.DrawWireCube(gizmoCenter, gizmoSize);
+        //
     }
 }
