@@ -68,7 +68,7 @@ AudioMixerController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: MusicMxier
+  m_Name: AudioMxier
   m_OutputGroup: {fileID: 0}
   m_MasterGroup: {fileID: 24300002}
   m_Snapshots:
@@ -78,8 +78,12 @@ AudioMixerController:
   m_EnableSuspend: 1
   m_UpdateMode: 0
   m_ExposedParameters:
+  - guid: 2c225543fafe26742b80827dbcd8cbe8
+    name: master
   - guid: e129f0a403328b84d95ee51e3d38b7fc
     name: music
+  - guid: 169521bd2e3caa84d8d3073a032b38c6
+    name: sfx
   m_AudioMixerGroupViews:
   - guids:
     - 675b1acd31fee144a957fd4ee22af47a
@@ -185,4 +189,4 @@ AudioMixerGroupController:
   m_UserColorIndex: 0
   m_Mute: 0
   m_Solo: 0
-  m_BypassEffects: 0
+  m_BypassEffects: 1
