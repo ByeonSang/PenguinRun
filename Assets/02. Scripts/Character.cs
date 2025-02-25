@@ -21,6 +21,11 @@ public class Character : MonoBehaviour
     private bool isGround = true;
     private int jumpCount = 0;
 
+    ////피격 시 무적
+    //private bool isInvincible = false; // 무적 상태
+    //public float invincibleDuration = 1.5f; // 무적 지속 시간
+    //private float invincibleTime = 0f;    // 무적 시작 시간
+
 
     private void Start()
     {
@@ -60,15 +65,26 @@ public class Character : MonoBehaviour
         }
         else
         {
-            if (Input.GetKeyDown(KeyCode.Space) && jumpCount < 2)
+            if (Input.GetKeyDown(KeyCode.Space) && jumpCount < 2 && !isSliding)
             {
                 Jump();
             }
 
-            if (Input.GetKeyDown(KeyCode.LeftShift) && !isSliding && !isJumping)
+            if (Input.GetKey(KeyCode.LeftShift) && !isJumping)
             {
                 Slide();
             }
+
+            if (Input.GetKeyUp(KeyCode.LeftShift))
+            {
+                StopSlide();
+            }
+
+            // 피격 시 2초 후 무적해제
+            //if(isInvincible && (Time.time - invincibleTime) >= invincibleDuration)
+            //{
+            //    isInvincible = false;
+            //}
         }
     }
 
@@ -87,13 +103,13 @@ public class Character : MonoBehaviour
         isJumping = true;
         isGround = false;
 
-        jumpCount++;               
+        jumpCount++;
 
 
         if (charAnimation != null)
         {
             if (jumpCount == 1)
-            {                
+            {
                 charAnimation.Jump();
             }
             else if (jumpCount == 2)
@@ -103,7 +119,6 @@ public class Character : MonoBehaviour
         }
 
         _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, JumpForce);
-
 
         Invoke(nameof(ResetJump), 1.5f);
     }
@@ -119,8 +134,6 @@ public class Character : MonoBehaviour
         _circleCollider.radius = 0.5f;
         isSliding = true;
         charAnimation.Slide();
-
-        Invoke(nameof(StopSlide), 1f);
     }
 
     private void StopSlide()
@@ -136,32 +149,48 @@ public class Character : MonoBehaviour
         if (isDead) return;
 
 
-        //if (collision.gameObject.CompareTag("Ground"))
-        //{
-        //    isGround = true;
-        //    isJumping = false;
-        //    jumpCount = 0;
-        //}
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            isGround = true;
+            isJumping = false;
+            jumpCount = 0;
+        }
 
-        //if (CharacterHP > 0)
+        // 장애물 닿을시 체력 감소
+        //if (collision.gameObject.CompareTag("Obstacle"))
         //{
-        //    CharacterHP -= 20f;
-        //    if (charAnimation != null)
+        //    if (!isInvincible)
         //    {
-        //        charAnimation.Damage();
-        //    }
-        //}
-        //else
-        //{
-        //    isDead = true;
-        //    charAnimation.Dead();
-        //    if (charAnimation != null)
-        //    {
-        //        deathCooldown = 1f;
-        //    }       
-        //gameManager.GameOver();
-        //}
+        //        if (CharacterHP > 0)
+        //        {
+        //            CharacterHP -= 20f;
+        //            if (charAnimation != null)
+        //            {
+        //                charAnimation.Damage();
+        //            }
 
-        
+        //            isInvincible = true;
+        //            invincibleTime = Time.time;
+        //        }
+        //        else
+        //        {
+        //            isDead = true;
+        //            if (charAnimation != null)
+        //            {
+        //                charAnimation.Dead();
+        //                deathCooldown = 1f;
+        //            }
+        //            gameManager.GameOver();
+        //        }
+        //    }            
+        //}
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Item"))
+        {
+
+        }
     }
 }
