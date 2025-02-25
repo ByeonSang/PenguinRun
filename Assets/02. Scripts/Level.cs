@@ -14,6 +14,7 @@ public class Level : MonoBehaviour
     public float bgSpeed = 1f;
     public float bgTime =0f;
     BoxCollider2D collider;
+    public bool isFirst;
     private void Awake()
     {
         collider = GetComponent<BoxCollider2D>();
@@ -35,7 +36,13 @@ public class Level : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-       
+        if (isFirst)
+        {
+            isFirst = false;
+            Destroy(gameObject);
+            return;
+
+        }
         if (collision.CompareTag("Looper"))
         {
            
