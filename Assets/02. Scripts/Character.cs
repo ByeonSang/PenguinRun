@@ -160,12 +160,12 @@ public class Character : MonoBehaviour
         if (isDead) return;
 
 
-        if (collision.gameObject.CompareTag("Background"))
-        {
-            isGround = true;
-            isJumping = false;
-            jumpCount = 0;
-        }
+        //if (collision.gameObject.CompareTag("Ground"))
+        //{
+        //    isGround = true;
+        //    isJumping = false;
+        //    jumpCount = 0;
+        //}
 
         //// 장애물 닿을시 체력 감소
         //if (collision.gameObject.CompareTag("Obstacle"))
