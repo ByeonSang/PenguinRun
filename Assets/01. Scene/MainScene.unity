@@ -592,10 +592,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbd2e6fdffd07ca4d955372027697e50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numBgCount: 2
+  numBgCount: 5
   obstacleCount: 0
   ObstacleLastPosition: {x: 0, y: 0, z: 0}
-  bgSpeed: 1
+  bgSpeed: 2
   bgTime: 0
   isFirst: 1
 --- !u!1 &139269040 stripped
@@ -635,7 +635,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 7.989708, y: 0.043509483}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -646,7 +646,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 38, y: 12.01487}
   m_EdgeRadius: 0
 --- !u!114 &139269042
 MonoBehaviour:
@@ -660,10 +660,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbd2e6fdffd07ca4d955372027697e50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numBgCount: 2
+  numBgCount: 5
   obstacleCount: 0
   ObstacleLastPosition: {x: 0, y: 0, z: 0}
-  bgSpeed: 1
+  bgSpeed: 2
   bgTime: 0
   isFirst: 0
 --- !u!1 &160935415
@@ -1809,7 +1809,7 @@ Transform:
   m_GameObject: {fileID: 689057070}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -36, y: 0, z: 0}
+  m_LocalPosition: {x: -49.8, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1826,6 +1826,10 @@ PrefabInstance:
     - target: {fileID: 1046288864940811869, guid: 4a308b27bc897cd47aa4f0732eef89ac, type: 3}
       propertyPath: m_Name
       value: TileMap2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1046288864940811869, guid: 4a308b27bc897cd47aa4f0732eef89ac, type: 3}
+      propertyPath: m_TagString
+      value: Background
       objectReference: {fileID: 0}
     - target: {fileID: 3269133533531564394, guid: 4a308b27bc897cd47aa4f0732eef89ac, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2261,7 +2265,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 8.126778, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -2272,7 +2276,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 38.26645, y: 1}
   m_EdgeRadius: 0
 --- !u!114 &821584614
 MonoBehaviour:
@@ -2286,10 +2290,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbd2e6fdffd07ca4d955372027697e50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numBgCount: 2
+  numBgCount: 5
   obstacleCount: 0
   ObstacleLastPosition: {x: 0, y: 0, z: 0}
-  bgSpeed: 1
+  bgSpeed: 2
   bgTime: 0
   isFirst: 0
 --- !u!1 &850040954
@@ -2575,7 +2579,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 8.006554, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -2586,7 +2590,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 38, y: 1}
   m_EdgeRadius: 0
 --- !u!114 &936925190
 MonoBehaviour:
@@ -2600,10 +2604,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbd2e6fdffd07ca4d955372027697e50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numBgCount: 2
+  numBgCount: 5
   obstacleCount: 0
   ObstacleLastPosition: {x: 0, y: 0, z: 0}
-  bgSpeed: 1
+  bgSpeed: 2
   bgTime: 0
   isFirst: 0
 --- !u!1 &938194638
@@ -3830,6 +3834,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: TileMap5
       objectReference: {fileID: 0}
+    - target: {fileID: 5678484918023670238, guid: cadb11221c6b35446a093553152604b3, type: 3}
+      propertyPath: m_TagString
+      value: Background
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4084,6 +4092,10 @@ PrefabInstance:
     - target: {fileID: 492443966191368179, guid: aaa9da154c987e54585c3460ab1b4223, type: 3}
       propertyPath: m_Name
       value: StartTile
+      objectReference: {fileID: 0}
+    - target: {fileID: 492443966191368179, guid: aaa9da154c987e54585c3460ab1b4223, type: 3}
+      propertyPath: m_TagString
+      value: Background
       objectReference: {fileID: 0}
     - target: {fileID: 4530877490817851412, guid: aaa9da154c987e54585c3460ab1b4223, type: 3}
       propertyPath: m_TagString
@@ -4542,7 +4554,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 8.031914, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -4553,7 +4565,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 38.10707, y: 1}
   m_EdgeRadius: 0
 --- !u!114 &1369411742
 MonoBehaviour:
@@ -4567,10 +4579,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbd2e6fdffd07ca4d955372027697e50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numBgCount: 2
+  numBgCount: 5
   obstacleCount: 0
   ObstacleLastPosition: {x: 0, y: 0, z: 0}
-  bgSpeed: 1
+  bgSpeed: 2
   bgTime: 0
   isFirst: 0
 --- !u!1 &1405313612
@@ -5320,6 +5332,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: TileMap6
       objectReference: {fileID: 0}
+    - target: {fileID: 4203278994327882271, guid: 3c4220b217b4d6d40b8c65f0551373f9, type: 3}
+      propertyPath: m_TagString
+      value: Background
+      objectReference: {fileID: 0}
     - target: {fileID: 5778311401309525776, guid: 3c4220b217b4d6d40b8c65f0551373f9, type: 3}
       propertyPath: m_LocalPosition.x
       value: 190
@@ -5992,6 +6008,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: TileMap4
       objectReference: {fileID: 0}
+    - target: {fileID: 7962242718624128435, guid: fd1ab660b75c91048a75274271d6183d, type: 3}
+      propertyPath: m_TagString
+      value: Background
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6331,6 +6351,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: TileMap3
       objectReference: {fileID: 0}
+    - target: {fileID: 613824660689607048, guid: f09aef9dced1de047a47c4c7f3b92f7c, type: 3}
+      propertyPath: m_TagString
+      value: Background
+      objectReference: {fileID: 0}
     - target: {fileID: 2834833777742812550, guid: f09aef9dced1de047a47c4c7f3b92f7c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 76
@@ -6553,7 +6577,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 7.9268723, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -6564,7 +6588,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 38, y: 1}
   m_EdgeRadius: 0
 --- !u!114 &1777649758
 MonoBehaviour:
@@ -6578,10 +6602,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbd2e6fdffd07ca4d955372027697e50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numBgCount: 2
+  numBgCount: 5
   obstacleCount: 0
   ObstacleLastPosition: {x: 0, y: 0, z: 0}
-  bgSpeed: 1
+  bgSpeed: 2
   bgTime: 0
   isFirst: 0
 --- !u!1 &1849003925
