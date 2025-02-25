@@ -2,8 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-//현재점수, 최대점수 구현
-//점수 올리는 로직 구현
 public class ScoreManager : MonoBehaviour
 {
     public static ScoreManager Instance { get; private set; } // 단 하나 존재 (고정), 프리펩에도 사용 가능
@@ -51,6 +49,10 @@ public class ScoreManager : MonoBehaviour
 
     public void SaveScore()
     {
-
+        if (BestScore < Score)
+        {
+            BestScore = Score;
+            PlayerPrefs.SetInt("BestScore", BestScore); // (이름, 값)
+        }
     }
 }
