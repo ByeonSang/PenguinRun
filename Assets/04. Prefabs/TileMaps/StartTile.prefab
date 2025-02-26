@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5835572827558380162}
   - component: {fileID: 3273050084021268100}
+  - component: {fileID: 7637229966400457796}
   m_Layer: 0
   m_Name: StartTile
   m_TagString: Untagged
@@ -49,6 +50,24 @@ Grid:
   m_CellGap: {x: 0, y: 0, z: 0}
   m_CellLayout: 0
   m_CellSwizzle: 0
+--- !u!114 &7637229966400457796
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 492443966191368179}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cbd2e6fdffd07ca4d955372027697e50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  numBgCount: 2
+  obstacleCount: 0
+  ObstacleLastPosition: {x: 0, y: 0, z: 0}
+  bgSpeed: 2
+  bgTime: 0
+  isFirst: 0
 --- !u!1 &582618924787316692
 GameObject:
   m_ObjectHideFlags: 0
@@ -386,7 +405,7 @@ GameObject:
   - component: {fileID: 4392040563450484892}
   m_Layer: 0
   m_Name: Collision
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
