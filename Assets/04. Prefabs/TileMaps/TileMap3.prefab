@@ -68,6 +68,7 @@ MonoBehaviour:
   numBgCount: 5
   obstacleCount: 0
   ObstacleLastPosition: {x: 0, y: 0, z: 0}
+  comboCheckers: []
   bgSpeed: 2
   bgTime: 0
   isFirst: 0
@@ -114,7 +115,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 38, y: 1}
+  m_Size: {x: 38, y: 10}
   m_EdgeRadius: 0
 --- !u!1 &673880833054710044
 GameObject:

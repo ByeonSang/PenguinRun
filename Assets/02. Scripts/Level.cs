@@ -11,6 +11,9 @@ public class Level : MonoBehaviour
     public Vector3 ObstacleLastPosition = Vector3.zero;
 
     private ItemSpawner[] itemSpawners;
+
+    public List<ComboChecker> comboCheckers = new List<ComboChecker>(); 
+
     public float bgSpeed;
     public float bgTime =0f;
     BoxCollider2D collider;
@@ -51,7 +54,12 @@ public class Level : MonoBehaviour
             pos.x += widthOfBgObject * numBgCount; // ���α��� ��ŭ �̵�
             collider.transform.position = pos; // pos �̵��� ��ġ�� collision ��ġ�� ����( �ݿ�)
             ResetItem();
+            ResetObstacles();
             return;
+        }
+        else if (collision.CompareTag("Player"))
+        {
+            collision.gameObject.GetComponent<Character>().currentLevel = this;
         }
 
     }
@@ -62,6 +70,16 @@ public class Level : MonoBehaviour
         {
             spawner.SetItem();
         }
+    }
+
+    public void ResetObstacles()
+    {
+        //리스트에 담아뒀던 콤보체커들의 콜라이더를 다시 활성화 시키고 리스트를 비워줌
+        foreach(ComboChecker combo in comboCheckers)
+        {
+            combo.col.enabled = true;
+        }
+        comboCheckers.Clear();
     }
 
 }
