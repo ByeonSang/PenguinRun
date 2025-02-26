@@ -241,11 +241,7 @@ public class Character : MonoBehaviour
             {
                 if (CurrentHealth > 0)
                 {
-                    TakeDamage(20);
-                    if (charAnimation != null)
-                    {
-                        charAnimation.Damage();
-                    }
+                    TakeDamage(20);                    
                     isInvincible = true;
                     invincibleTime = Time.time;
                 }
@@ -266,9 +262,22 @@ public class Character : MonoBehaviour
     // 데미지 입었을 때
     public void TakeDamage(float damage)
     {
+        Debug.Log("데미지 입음");
         CurrentHealth -= damage;
         CurrentHealth = Mathf.Clamp(CurrentHealth, 0, MaxHealth);
         UpdateHpBar();
+        if (charAnimation != null)
+        {
+            charAnimation.Damage();
+        }
+
+        Invoke(nameof(StopDamageAnimation), 1.5f);
+    }
+
+    public void StopDamageAnimation()
+    {
+        Debug.Log("데미지 취소애니");
+        charAnimation.OffDamage();
     }
 
 
@@ -303,8 +312,7 @@ public class Character : MonoBehaviour
 
     // 슬라이드 버튼클릭
     void SlideButtonClick()
-    {
-        Debug.Log("슬라이드버튼");
+    {       
         if (!isSliding && !isJumping)
             Slide();
 
