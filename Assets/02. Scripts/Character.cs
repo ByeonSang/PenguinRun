@@ -8,7 +8,7 @@ public class Character : MonoBehaviour
     protected CharAnimation charAnimation;
     protected Rigidbody2D _rigidbody;
     protected CircleCollider2D _circleCollider;
-    protected SpriteRenderer _spriteRenderer;
+    protected SpriteRenderer _spriteRenderer;    
 
     public float JumpForce = 7.5f;
 
@@ -22,7 +22,7 @@ public class Character : MonoBehaviour
 
     //피격 시 무적
     private bool isInvincible = false; // 무적 상태
-    public float invincibleDuration = 1.5f; // 무적 지속 시간
+    public float invincibleDuration = 2f; // 무적 지속 시간
     private float invincibleTime = 0f;    // 무적 시작 시간
 
     public Slider HealthSlider;
@@ -30,10 +30,12 @@ public class Character : MonoBehaviour
     public float CurrentHealth;
 
     public Button JumpButton;
-    public Button SlideButton;
+    public Button SlideButton;    
 
     public float GravityTime = 0f;
     public float GravitySpeed = 0.5f;
+
+    private float colliderRadius;
 
     //스피드 아이템 관련 불변수
     public bool isSpeeding = false;
@@ -42,12 +44,11 @@ public class Character : MonoBehaviour
 
     private void Start()
     {
-        //gameManager = GameManager.Instance;
-
         charAnimation = GetComponentInChildren<CharAnimation>();
         _rigidbody = GetComponent<Rigidbody2D>();
         _circleCollider = GetComponent<CircleCollider2D>();
         _spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+
 
         if (charAnimation == null)
             Debug.LogError("Animator is null");
@@ -68,7 +69,7 @@ public class Character : MonoBehaviour
 
         #region colorChange
 
-        
+
 
         if (PlayerPrefs.HasKey("PlayerColor"))
         {
@@ -84,7 +85,9 @@ public class Character : MonoBehaviour
         #endregion
 
         JumpButton.onClick.AddListener(JumpButtonClick);
-        SlideButton.onClick.AddListener(SlideButtonClick);
+        SlideButton.onClick.AddListener(SlideButtonClick);     
+        
+        colliderRadius = _circleCollider.radius;
     }
 
     private void Update()
@@ -95,7 +98,7 @@ public class Character : MonoBehaviour
             {
                 if (Input.GetKeyDown(KeyCode.Space))
                 {
-                    //gameManager.RestartGame();
+                    UIManager.Instance.Restart();
                 }
             }
             else
@@ -120,14 +123,14 @@ public class Character : MonoBehaviour
                 StopSlide();
             }
 
-            // 피격 시 1.5초 후 무적해제
+            // 피격 시 2초 후 무적해제
             if (isInvincible && (Time.time - invincibleTime) >= invincibleDuration)
             {
                 isInvincible = false;
             }
         }
 
-        if (GravityTime >= 5f)
+        if (GravityTime >= 10f)
         {
             _rigidbody.gravityScale += GravitySpeed;
             JumpForce += GravitySpeed * 2f;
@@ -137,12 +140,6 @@ public class Character : MonoBehaviour
 
         CurrentHealth -= 1f * Time.deltaTime;
         UpdateHpBar();
-
-        if (CurrentHealth <= 0 && !isDead)
-        {
-            isDead = true;
-            charAnimation.Dead();
-        }
     }
 
     private void FixedUpdate()
@@ -162,6 +159,7 @@ public class Character : MonoBehaviour
 
     protected void Jump()
     {
+        AudioManager.Instance.PlaySFX("Jump");
         isJumping = true;
         isGround = false;
 
@@ -182,17 +180,21 @@ public class Character : MonoBehaviour
 
         _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, JumpForce);
 
-        Invoke(nameof(ResetJump), 1.5f);
+        Invoke(nameof(ResetJump), 1f);
     }
 
     protected void ResetJump()
     {
-        isJumping = false;
+        if (isGround)
+        {
+            isJumping = false;
+        }
         charAnimation.OffJump();
     }
 
     private void Slide()
     {
+        SlideSound();
         _circleCollider.radius = 0.5f;
         isSliding = true;
         charAnimation.Slide();
@@ -200,9 +202,17 @@ public class Character : MonoBehaviour
 
     private void StopSlide()
     {
-        _circleCollider.radius = 1f;
+        _circleCollider.radius = colliderRadius;
         isSliding = false;
         charAnimation.OffSlide();
+    }
+
+    private void SlideSound()
+    {
+        if (!isSliding)
+        {
+            AudioManager.Instance.PlaySFX("Sliding");
+        }
     }
 
 
@@ -223,9 +233,16 @@ public class Character : MonoBehaviour
         //아이템과 닿으면 아이템 사용
         if (collision.CompareTag("Item"))
         {
-            IUseable item = collision.gameObject.GetComponent<IUseable>();
+            BaseItem item = collision.gameObject.GetComponent<BaseItem>();
             item.Use();
-            Destroy(collision.gameObject);
+            if (item.ItemID == 2)
+            {
+                return;
+            }
+            else
+            {
+                Destroy(collision.gameObject);
+            }
         }
 
         // 장애물 닿을시 체력 감소
@@ -241,7 +258,7 @@ public class Character : MonoBehaviour
             {
                 if (CurrentHealth > 0)
                 {
-                    TakeDamage(20);                    
+                    TakeDamage(20);
                     isInvincible = true;
                     invincibleTime = Time.time;
                 }
@@ -253,7 +270,7 @@ public class Character : MonoBehaviour
                         charAnimation.Dead();
                         deathCooldown = 1f;
                     }
-                    //gameManager.GameOver();
+                    UIManager.Instance.GameOver();
                 }
             }
         }
@@ -262,7 +279,6 @@ public class Character : MonoBehaviour
     // 데미지 입었을 때
     public void TakeDamage(float damage)
     {
-        Debug.Log("데미지 입음");
         CurrentHealth -= damage;
         CurrentHealth = Mathf.Clamp(CurrentHealth, 0, MaxHealth);
         UpdateHpBar();
@@ -271,12 +287,11 @@ public class Character : MonoBehaviour
             charAnimation.Damage();
         }
 
-        Invoke(nameof(StopDamageAnimation), 1.5f);
+        Invoke(nameof(StopDamageAnimation), 0.5f);
     }
 
     public void StopDamageAnimation()
     {
-        Debug.Log("데미지 취소애니");
         charAnimation.OffDamage();
     }
 
@@ -297,25 +312,34 @@ public class Character : MonoBehaviour
         {
             isDead = true;
             charAnimation.Dead();
+            deathCooldown = 1f;
+            UIManager.Instance.GameOver();
         }
     }
 
     // 점프 버튼클릭
     void JumpButtonClick()
     {
-        if (jumpCount < 2 && !isSliding)
+        if (jumpCount < 2)
         {
-            jumpCount++;
+            if (isSliding)
+            {
+                StopSlide();
+            }
             Jump();
         }
+        EventSystem.current.SetSelectedGameObject(null);
     }
 
     // 슬라이드 버튼클릭
     void SlideButtonClick()
-    {       
+    {
         if (!isSliding && !isJumping)
+        {
             Slide();
+            Invoke(nameof(StopSlide), 1f);
+        }
 
-        Invoke(nameof(StopSlide), 1f);
-    }
+        EventSystem.current.SetSelectedGameObject(null);
+    }    
 }

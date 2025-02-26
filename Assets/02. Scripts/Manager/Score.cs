@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class Score : MonoBehaviour
 {
@@ -10,6 +11,11 @@ public class Score : MonoBehaviour
 
     public int CurrentScore { get; private set; } = 0;     // 현재점수
     public int BestScore { get; private set; } = 0; // 최대점수
+
+    public TextMeshProUGUI scoreText;
+    public TextMeshProUGUI bestScoreText;
+    public TextMeshProUGUI resultScoreText;
+    public TextMeshProUGUI resultBestScoreText;
 
     private void Awake()
     {
@@ -36,6 +42,15 @@ public class Score : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void UpdateUI()
+    {
+        scoreText.text = CurrentScore.ToString();
+        resultScoreText.text = scoreText.text;
+        
+        bestScoreText.text = BestScore.ToString();
+        resultBestScoreText.text = bestScoreText.text;
     }
 
     /// <summary>
