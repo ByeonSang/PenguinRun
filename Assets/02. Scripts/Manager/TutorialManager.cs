@@ -24,11 +24,7 @@ public class TutorialManager : MonoBehaviour
     public Character playerCharacter;
     void Start()
     {
-        if (playerCharacter != null)
-        {
-            playerCharacter.isTutorialMode = true; // 튜토리얼 모드 활성화
-            
-        }
+       
         StartCoroutine(WriteText());
     }
 
