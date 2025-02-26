@@ -130,7 +130,7 @@ public class Character : MonoBehaviour
             }
         }
 
-        if (GravityTime >= 5f)
+        if (GravityTime >= 10f)
         {
             _rigidbody.gravityScale += GravitySpeed;
             JumpForce += GravitySpeed * 2f;
