@@ -8,8 +8,8 @@ public class Character : MonoBehaviour
     protected CharAnimation charAnimation;
     protected Rigidbody2D _rigidbody;
     protected CircleCollider2D _circleCollider;
-    protected SpriteRenderer _spriteRenderer;    
-
+    protected SpriteRenderer _spriteRenderer;
+    public Level currentLevel;
     public float JumpForce = 7.5f;
 
     public bool isDead = false;
@@ -259,6 +259,11 @@ public class Character : MonoBehaviour
                 if (CurrentHealth > 0)
                 {
                     TakeDamage(20);
+                    //데미지를 받으면 콤보체커의 콜라이더를 비활성화 시킴
+                    ComboChecker comboChecker = collision.GetComponentInChildren<ComboChecker>();
+                    currentLevel.comboCheckers.Add(comboChecker);
+                    comboChecker.col.enabled = false;
+
                     isInvincible = true;
                     invincibleTime = Time.time;
                 }
@@ -282,6 +287,7 @@ public class Character : MonoBehaviour
         CurrentHealth -= damage;
         CurrentHealth = Mathf.Clamp(CurrentHealth, 0, MaxHealth);
         UpdateHpBar();
+        QuestManager.Instance.currentCombo = 0;
         if (charAnimation != null)
         {
             charAnimation.Damage();
