@@ -248,7 +248,9 @@ public class Character : MonoBehaviour
         {
             if (isSpeeding)
             {
+                //스피드 모드일 때는 부딪히는 장애물을 비활성화 시킴
                 collision.gameObject.SetActive(false);
+                currentLevel.obstacles.Add(collision.gameObject);
                 return;
             }
 

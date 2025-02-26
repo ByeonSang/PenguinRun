@@ -13,6 +13,7 @@ public class Level : MonoBehaviour
     private ItemSpawner[] itemSpawners;
 
     public List<ComboChecker> comboCheckers = new List<ComboChecker>(); 
+    public List<GameObject> obstacles = new List<GameObject>();
 
     public float bgSpeed;
     public float bgTime =0f;
@@ -80,6 +81,11 @@ public class Level : MonoBehaviour
             combo.col.enabled = true;
         }
         comboCheckers.Clear();
+        foreach(GameObject obstacle in obstacles)
+        {
+            obstacle.SetActive(true);
+        }
+        obstacles.Clear();
     }
 
 }
