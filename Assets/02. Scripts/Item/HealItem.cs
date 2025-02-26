@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class HealItem : BaseItem
 {
-    [SerializeField] private int value;
+    [SerializeField] private float value = 100;
     public override void Init()
     {
         base.Init();
@@ -15,6 +15,6 @@ public class HealItem : BaseItem
     {
         base.Use();
         character.Heal(value);
-        audioManager.PlaySFX("Eating02");
+        //audioManager.PlaySFX("Eating02");
     }
 }

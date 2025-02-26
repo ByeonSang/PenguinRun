@@ -4,19 +4,22 @@ using UnityEngine;
 
 public class SpeedItem : BaseItem
 {
-    [SerializeField] private float speed;
+    [SerializeField] private float speed = 3;
     private Level[] levels;
     public static Coroutine speedCo = null;
+    public SpriteRenderer speedItemRenderer;
 
     public override void Init()
     {
         base.Init();
         levels = FindObjectsOfType<Level>();
-        ItemID = 3;
+        speedItemRenderer = GetComponentInChildren<SpriteRenderer>();
+        ItemID = 2;
     }
     public override void Use()
     {
         base.Use();
+        speedItemRenderer.gameObject.SetActive(false);
         if (speedCo == null)
         {
             speedCo = StartCoroutine(SpeedingCo(speed));//스피드 값은 언제든 변경 가능
@@ -27,7 +30,7 @@ public class SpeedItem : BaseItem
             EndBuffEffect();
             speedCo = StartCoroutine(SpeedingCo(speed));
         }
-        audioManager.PlaySFX("Eating02");
+        //audioManager.PlaySFX("Eating02");
     }
 
     private IEnumerator SpeedingCo(float speed)
@@ -37,7 +40,7 @@ public class SpeedItem : BaseItem
         {
             level.bgSpeed += speed;
         }
-        yield return new WaitForSeconds(4);
+        yield return new WaitForSeconds(2);
         EndBuffEffect();
     }
 

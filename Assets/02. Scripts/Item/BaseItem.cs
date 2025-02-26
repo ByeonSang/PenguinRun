@@ -8,7 +8,7 @@ public interface IUseable
 }
 public class BaseItem : MonoBehaviour, IUseable
 {
-    protected int ItemID;
+    public int ItemID;
     protected Character character;
     protected AudioManager audioManager = AudioManager.Instance;
 
