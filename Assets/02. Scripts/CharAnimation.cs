@@ -9,10 +9,19 @@ public class CharAnimation : MonoBehaviour
     private static readonly int IsDead = Animator.StringToHash("IsDead");
 
     protected Animator animator;
+    //private Renderer characterRenderer;
+    //private Material characterMaterial;
+    //private bool isDamageActive = false;
+
+    //public float BlinkDamageColor = 0.2f;
+    //private Coroutine damageCoroutine;
 
     private void Awake()
     {
-        animator = GetComponentInChildren<Animator>();        
+        animator = GetComponentInChildren<Animator>();
+        //characterRenderer = GetComponentInChildren<Renderer>();
+        //characterMaterial = characterRenderer.material;
+
         if (animator == null)
         {
             Debug.LogError("Animator is null");
@@ -21,8 +30,10 @@ public class CharAnimation : MonoBehaviour
 
     public void Damage()
     {
+        //StopCoroutine(damageCoroutine);
+        //damageCoroutine = StartCoroutine(BlinkDamageColor());
         animator.SetBool(IsDamage, true);
-    }    
+    }
 
     public void OffDamage()
     {
@@ -30,19 +41,19 @@ public class CharAnimation : MonoBehaviour
     }
 
     public void Jump()
-    {        
+    {
         animator.SetBool(IsJump, true);
     }
 
     public void TwoJump()
-    {        
+    {
         animator.SetBool(IsTwoJump, true);
     }
 
     public void OffJump()
     {
         animator.SetBool(IsJump, false);
-        animator.SetBool(IsTwoJump,false);
+        animator.SetBool(IsTwoJump, false);
     }
 
     public void Slide()
@@ -52,7 +63,7 @@ public class CharAnimation : MonoBehaviour
 
     public void OffSlide()
     {
-        animator.SetBool(IsSlide, false);   
+        animator.SetBool(IsSlide, false);
     }
 
     public void Dead()

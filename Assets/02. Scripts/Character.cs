@@ -8,7 +8,7 @@ public class Character : MonoBehaviour
     protected CharAnimation charAnimation;
     protected Rigidbody2D _rigidbody;
     protected CircleCollider2D _circleCollider;
-    protected SpriteRenderer _spriteRenderer;        
+    protected SpriteRenderer _spriteRenderer;    
 
     public float JumpForce = 7.5f;
 
@@ -30,7 +30,7 @@ public class Character : MonoBehaviour
     public float CurrentHealth;
 
     public Button JumpButton;
-    public Button SlideButton;
+    public Button SlideButton;    
 
     public float GravityTime = 0f;
     public float GravitySpeed = 0.5f;
@@ -44,13 +44,11 @@ public class Character : MonoBehaviour
 
     private void Start()
     {
-        //gameManager = GameManager.Instance;
-
         charAnimation = GetComponentInChildren<CharAnimation>();
         _rigidbody = GetComponent<Rigidbody2D>();
         _circleCollider = GetComponent<CircleCollider2D>();
         _spriteRenderer = GetComponentInChildren<SpriteRenderer>();
-                
+
 
         if (charAnimation == null)
             Debug.LogError("Animator is null");
@@ -87,8 +85,8 @@ public class Character : MonoBehaviour
         #endregion
 
         JumpButton.onClick.AddListener(JumpButtonClick);
-        SlideButton.onClick.AddListener(SlideButtonClick);
-
+        SlideButton.onClick.AddListener(SlideButtonClick);     
+        
         colliderRadius = _circleCollider.radius;
     }
 
@@ -100,7 +98,7 @@ public class Character : MonoBehaviour
             {
                 if (Input.GetKeyDown(KeyCode.Space))
                 {
-                    //gameManager.RestartGame();
+                    UIManager.Instance.Restart();
                 }
             }
             else
@@ -116,7 +114,7 @@ public class Character : MonoBehaviour
             }
 
             if (Input.GetKey(KeyCode.LeftShift) && !isJumping)
-            {                
+            {
                 Slide();
             }
 
@@ -172,16 +170,16 @@ public class Character : MonoBehaviour
         {
             if (jumpCount == 1)
             {
-                charAnimation.Jump();               
+                charAnimation.Jump();
             }
             else if (jumpCount == 2)
             {
-                charAnimation.TwoJump();               
-            }            
+                charAnimation.TwoJump();
+            }
         }
 
         _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, JumpForce);
-                
+
         Invoke(nameof(ResetJump), 1f);
     }
 
@@ -272,7 +270,7 @@ public class Character : MonoBehaviour
                         charAnimation.Dead();
                         deathCooldown = 1f;
                     }
-                    //gameManager.GameOver();
+                    UIManager.Instance.GameOver();
                 }
             }
         }
@@ -289,7 +287,7 @@ public class Character : MonoBehaviour
             charAnimation.Damage();
         }
 
-        Invoke(nameof(StopDamageAnimation), 2f);
+        Invoke(nameof(StopDamageAnimation), 0.5f);
     }
 
     public void StopDamageAnimation()
@@ -315,6 +313,7 @@ public class Character : MonoBehaviour
             isDead = true;
             charAnimation.Dead();
             deathCooldown = 1f;
+            UIManager.Instance.GameOver();
         }
     }
 
@@ -342,5 +341,5 @@ public class Character : MonoBehaviour
         }
 
         EventSystem.current.SetSelectedGameObject(null);
-    }
+    }    
 }
