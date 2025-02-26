@@ -1588,7 +1588,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &718171427
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1968,10 +1968,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d39f885560eadb4ba2bb8c3b084f8e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreText: {fileID: 1747403698}
-  bestScoreText: {fileID: 1559766308}
-  resultScoreText: {fileID: 1221403913}
-  resultBestScoreText: {fileID: 1454657767}
   gameOverUI: {fileID: 718171426}
 --- !u!4 &938194642
 Transform:
@@ -5664,6 +5660,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5e9c88034ac91941a4ce97d04649835, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  scoreText: {fileID: 1747403698}
+  bestScoreText: {fileID: 1323082485}
+  resultScoreText: {fileID: 1221403913}
+  resultBestScoreText: {fileID: 1454657767}
 --- !u!4 &2135232868
 Transform:
   m_ObjectHideFlags: 0
