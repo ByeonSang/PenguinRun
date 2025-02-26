@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using System.Threading;
 using System;
+using UnityEngine.SceneManagement;
 
 public class TutorialManager : MonoBehaviour
 {
@@ -11,15 +12,23 @@ public class TutorialManager : MonoBehaviour
     public TextMeshProUGUI coachingText;
     private bool isTutorialActive = true; // 튜토리얼 진행 중 여부
     public GameObject tutorialPanel; // 텍스트 박스 UI 오브젝트
-    public GameObject obs1;
+    
+    public GameObject HpList;
     string[] jumpStr = { "안녕! 펭귄런에 온 걸 환영해! ", "간단한 펭귄런 조작법을 배워볼거야", "스페이스바를 눌러, 점프키를 배워보자" };
     string[] slideStr = { "이제 슬라이딩을 배워볼거야", "왼쪽 쉬프트키를 눌러서 슬라이딩을 해보자" };
     string[] twoJumpStr = { "이제 이단점프를 배워볼까?", "스페이스바를 두 번 눌러서 이단점프를 해보자!" };
-    string[] hpItemStr = { "자, 이제 체력을 회복해보자", "저기 보이는 빨간색 눈송이를 먹으면 너의 체력을 회복할 수 있어!", "가서 먹어봐" };
+    string[] itemStr = { "빨간색 눈송이는 Hp를 회복해!", "파란색 눈송이는 속도가 올라가!\n 장애물도 파괴해!" };
+    
     private bool firstJump = false;
     private bool secondJump = false;
+    public Character playerCharacter;
     void Start()
     {
+        if (playerCharacter != null)
+        {
+            playerCharacter.isTutorialMode = true; // 튜토리얼 모드 활성화
+            
+        }
         StartCoroutine(WriteText());
     }
 
@@ -70,15 +79,24 @@ public class TutorialManager : MonoBehaviour
         yield return new WaitForSecondsRealtime(2f);
 
         // 체력 회복
+      
         Time.timeScale = 0f;
-        foreach (string message in hpItemStr)
+        foreach (string message in itemStr)
         {
             coachingText.text = message;
-            yield return new WaitForSecondsRealtime(2f);
+            yield return new WaitForSecondsRealtime(3f);
         }
         tutorialPanel.SetActive(false);
+      
         Time.timeScale = 1f;
-        PerfectText();
+       
+        tutorialPanel.SetActive(true);
+        yield return new WaitForSecondsRealtime(5f);
+        coachingText.text = "수고했어 이제 시작화면으로 돌아가서 진짜 게임을 해봐!";
+        yield return new WaitForSecondsRealtime(5f);
+
+        SceneManager.LoadScene("StartScene");
+
     }
 
     IEnumerator TJump()
@@ -131,5 +149,11 @@ public class TutorialManager : MonoBehaviour
     string PerfectText()
     {
         return coachingText.text = "잘했어!";
+    }
+
+    void HandleHpItemCollected()
+    {
+        Debug.Log("TutorialManager에서 Hp 아이템 처리!");
+        HpList.SetActive(false);
     }
 }

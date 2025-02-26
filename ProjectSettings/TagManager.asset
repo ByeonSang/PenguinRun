@@ -9,6 +9,8 @@ TagManager:
   - Item
   - Obstacle
   - Ground
+  - Hp
+  - Speed
   layers:
   - Default
   - TransparentFX
