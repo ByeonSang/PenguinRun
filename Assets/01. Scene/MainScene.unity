@@ -940,6 +940,10 @@ PrefabInstance:
       propertyPath: HealthSlider
       value: 
       objectReference: {fileID: 931416683}
+    - target: {fileID: 7440524579189453373, guid: b1697263939855742881c6f9f100fe5f, type: 3}
+      propertyPath: _spriteRenderer
+      value: 
+      objectReference: {fileID: 748514428}
     - target: {fileID: 7449538643797458713, guid: b1697263939855742881c6f9f100fe5f, type: 3}
       propertyPath: m_LocalPosition.x
       value: -7
@@ -985,6 +989,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b1697263939855742881c6f9f100fe5f, type: 3}
+--- !u!212 &748514428 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 3555864183304583047, guid: b1697263939855742881c6f9f100fe5f, type: 3}
+  m_PrefabInstance: {fileID: 748514427}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &749911916
 PrefabInstance:
   m_ObjectHideFlags: 0

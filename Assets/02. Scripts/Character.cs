@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -7,6 +8,7 @@ public class Character : MonoBehaviour
     protected CharAnimation charAnimation;
     protected Rigidbody2D _rigidbody;
     protected CircleCollider2D _circleCollider;
+    protected SpriteRenderer _spriteRenderer;
 
     public float JumpForce = 7.5f;
 
@@ -36,6 +38,8 @@ public class Character : MonoBehaviour
     //스피드 아이템 관련 불변수
     public bool isSpeeding = false;
 
+    Color originColor = Color.white;
+
     private void Start()
     {
         //gameManager = GameManager.Instance;
@@ -43,6 +47,7 @@ public class Character : MonoBehaviour
         charAnimation = GetComponentInChildren<CharAnimation>();
         _rigidbody = GetComponent<Rigidbody2D>();
         _circleCollider = GetComponent<CircleCollider2D>();
+        _spriteRenderer = GetComponentInChildren<SpriteRenderer>();
 
         if (charAnimation == null)
             Debug.LogError("Animator is null");
@@ -60,6 +65,23 @@ public class Character : MonoBehaviour
 
         _rigidbody.gravityScale = 1f;
         JumpForce = 7.5f;
+
+        #region colorChange
+
+        
+
+        if (PlayerPrefs.HasKey("PlayerColor"))
+        {
+            string str = PlayerPrefs.GetString("PlayerColor");
+            float[] colorValue = str.Split('/').Select(s => float.Parse(s)).ToArray();
+            originColor = new Color(colorValue[0], colorValue[1], colorValue[2], colorValue[3]);
+        }
+        else
+        {
+            originColor = Color.white;
+        }
+
+        #endregion
 
         JumpButton.onClick.AddListener(JumpButtonClick);
         SlideButton.onClick.AddListener(SlideButtonClick);
@@ -131,6 +153,11 @@ public class Character : MonoBehaviour
         {
             isJumping = false;
         }
+    }
+
+    private void LateUpdate()
+    {
+        _spriteRenderer.color = originColor;
     }
 
     protected void Jump()
