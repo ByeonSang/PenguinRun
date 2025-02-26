@@ -14,7 +14,7 @@ public class UIManager : MonoBehaviour
             if (instance == null)
             {
                 instance = (UIManager)GameObject.FindObjectOfType(typeof(UIManager));
-                if (Instance == null)
+                if (instance == null)
                 {
                     GameObject obj = new GameObject(typeof(UIManager).Name, typeof(UIManager));
                     instance = obj.GetComponent<UIManager>();

@@ -5,11 +5,11 @@ using UnityEngine;
 public class ScoreItem : BaseItem
 {
     [SerializeField] private int value;
-    private ScoreManager scoreManager;
+    private Score scoreManager;
     public override void Init()
     {
         base.Init();
-        scoreManager = FindObjectOfType<ScoreManager>();
+        scoreManager = FindObjectOfType<Score>();
         ItemID = 0;
     }
     public override void Use()
