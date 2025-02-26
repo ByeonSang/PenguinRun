@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Net.NetworkInformation;
 using UnityEngine;
 
 public class CharAnimation : MonoBehaviour
@@ -9,35 +11,64 @@ public class CharAnimation : MonoBehaviour
     private static readonly int IsDead = Animator.StringToHash("IsDead");
 
     protected Animator animator;
-    //private Renderer characterRenderer;
-    //private Material characterMaterial;
-    //private bool isDamageActive = false;
+    private Renderer characterRenderer;
+    private Material characterMaterial;
+    private bool isDamageActive = false;
 
-    //public float BlinkDamageColor = 0.2f;
-    //private Coroutine damageCoroutine;
+    public float BlinkDamageColor = 0.1f;
+    private Coroutine damageCoroutine;
+
+    private Color originalColor;
+    private float blinkAlpha = 0f;
+
 
     private void Awake()
     {
         animator = GetComponentInChildren<Animator>();
-        //characterRenderer = GetComponentInChildren<Renderer>();
-        //characterMaterial = characterRenderer.material;
+        characterRenderer = GetComponentInChildren<Renderer>();
+        characterMaterial = characterRenderer.material;
 
         if (animator == null)
         {
             Debug.LogError("Animator is null");
         }
+
+        originalColor = characterMaterial.color;
     }
 
     public void Damage()
     {
-        //StopCoroutine(damageCoroutine);
-        //damageCoroutine = StartCoroutine(BlinkDamageColor());
+        if (damageCoroutine != null)
+        {
+            StopCoroutine(damageCoroutine);
+        }
+
+        isDamageActive = true;
+        damageCoroutine = StartCoroutine(DamageBlink());
         animator.SetBool(IsDamage, true);
+    }
+
+    private IEnumerator DamageBlink()
+    {
+        while (isDamageActive)
+        {
+            blinkAlpha = Mathf.Lerp(1f, 0f, Mathf.PingPong(Time.time / BlinkDamageColor, 1f));
+            characterMaterial.color = new Color(originalColor.r, originalColor.g, originalColor.b, blinkAlpha);
+            yield return null;
+        }
     }
 
     public void OffDamage()
     {
+        isDamageActive = false;
+
+        if (damageCoroutine != null)
+        {
+            StopCoroutine(damageCoroutine);
+        }
+
         animator.SetBool(IsDamage, false);
+        characterMaterial.color = originalColor;
     }
 
     public void Jump()
@@ -68,6 +99,7 @@ public class CharAnimation : MonoBehaviour
 
     public void Dead()
     {
+        characterMaterial.color = Color.red;
         animator.SetBool(IsDead, true);
     }
 }
