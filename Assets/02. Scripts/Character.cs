@@ -33,6 +33,8 @@ public class Character : MonoBehaviour
     public float GravityTime = 0f;
     public float GravitySpeed = 0.5f;
 
+    //스피드 아이템 관련 불변수
+    public bool isSpeeding = false;
 
     private void Start()
     {
@@ -188,43 +190,50 @@ public class Character : MonoBehaviour
         //    isJumping = false;
         //    jumpCount = 0;
         //}
-
-        //// 장애물 닿을시 체력 감소
-        //if (collision.gameObject.CompareTag("Obstacle"))
-        //{
-        //    if (!isInvincible)
-        //    {
-        //        if (CurrentHealth > 0)
-        //        {
-        //            TakeDamage(20);
-        //            if (charAnimation != null)
-        //            {
-        //                charAnimation.Damage();
-        //            }
-        //            isInvincible = true;
-        //            invincibleTime = Time.time;
-        //        }
-        //        else
-        //        {
-        //            isDead = true;
-        //            if (charAnimation != null)
-        //            {
-        //                charAnimation.Dead();
-        //                deathCooldown = 1f;
-        //            }
-        //            //gameManager.GameOver();
-        //        }
-        //    }
-        //}
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        //아이템과 닿으면 아이템 사용
         if (collision.CompareTag("Item"))
         {
             IUseable item = collision.gameObject.GetComponent<IUseable>();
             item.Use();
             Destroy(collision.gameObject);
+        }
+
+        // 장애물 닿을시 체력 감소
+        if (collision.gameObject.CompareTag("Obstacle"))
+        {
+            if (isSpeeding)
+            {
+                collision.gameObject.SetActive(false);
+                return;
+            }
+
+            if (!isInvincible)
+            {
+                if (CurrentHealth > 0)
+                {
+                    TakeDamage(20);
+                    if (charAnimation != null)
+                    {
+                        charAnimation.Damage();
+                    }
+                    isInvincible = true;
+                    invincibleTime = Time.time;
+                }
+                else
+                {
+                    isDead = true;
+                    if (charAnimation != null)
+                    {
+                        charAnimation.Dead();
+                        deathCooldown = 1f;
+                    }
+                    //gameManager.GameOver();
+                }
+            }
         }
     }
 
