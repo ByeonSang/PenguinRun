@@ -3181,7 +3181,7 @@ GameObject:
   - component: {fileID: 805377518}
   m_Layer: 0
   m_Name: Looper
-  m_TagString: Untagged
+  m_TagString: Looper
   m_Icon: {fileID: 3306451490063965843, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3242,7 +3242,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -3267,7 +3267,7 @@ Transform:
   m_GameObject: {fileID: 805377517}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -38, y: 0, z: 0}
+  m_LocalPosition: {x: -66.1, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 12, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3460,10 +3460,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1893621058905957751, guid: b1697263939855742881c6f9f100fe5f, type: 3}
-      propertyPath: m_Radius
-      value: 0.8
-      objectReference: {fileID: 0}
     - target: {fileID: 6883345170822654285, guid: b1697263939855742881c6f9f100fe5f, type: 3}
       propertyPath: m_Name
       value: Character
@@ -5255,7 +5251,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5778311401309525776, guid: 3c4220b217b4d6d40b8c65f0551373f9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 38
+      value: 190
       objectReference: {fileID: 0}
     - target: {fileID: 5778311401309525776, guid: 3c4220b217b4d6d40b8c65f0551373f9, type: 3}
       propertyPath: m_LocalPosition.y
@@ -6227,7 +6223,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3269133533531564394, guid: 4a308b27bc897cd47aa4f0732eef89ac, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -17.45
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3269133533531564394, guid: 4a308b27bc897cd47aa4f0732eef89ac, type: 3}
       propertyPath: m_LocalPosition.z
@@ -6905,11 +6901,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5442545913351963845, guid: cadb11221c6b35446a093553152604b3, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 152
       objectReference: {fileID: 0}
     - target: {fileID: 5442545913351963845, guid: cadb11221c6b35446a093553152604b3, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -16
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5442545913351963845, guid: cadb11221c6b35446a093553152604b3, type: 3}
       propertyPath: m_LocalPosition.z

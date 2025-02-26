@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2834833777742812550}
   - component: {fileID: 3636778445832153700}
   - component: {fileID: 148084931093118113}
+  - component: {fileID: 5984897418964767460}
   m_Layer: 0
   m_Name: TileMap3
   m_TagString: Untagged
@@ -64,12 +65,57 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbd2e6fdffd07ca4d955372027697e50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numBgCount: 2
+  numBgCount: 5
   obstacleCount: 0
   ObstacleLastPosition: {x: 0, y: 0, z: 0}
   bgSpeed: 2
   bgTime: 0
   isFirst: 0
+--- !u!61 &5984897418964767460
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 613824660689607048}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 8, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 38, y: 1}
+  m_EdgeRadius: 0
 --- !u!1 &673880833054710044
 GameObject:
   m_ObjectHideFlags: 0
