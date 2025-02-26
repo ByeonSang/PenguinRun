@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using System.Threading;
 using System;
+
 public class TutorialManager : MonoBehaviour
 {
     // Start is called before the first frame update
@@ -33,11 +34,24 @@ public class TutorialManager : MonoBehaviour
         tutorialPanel.SetActive(false); // 동작동안 판넬 제거
         Time.timeScale = 1f; // 게임 동작
         yield return StartCoroutine(TJump()); // 점프 실행
-        coachingText.text = "잘했어";
+        PerfectText();
 
         yield return new WaitForSecondsRealtime(2f); // 텍스트 확인할때 까지 2초 기다리기
         Time.timeScale = 0f; // 게임 멈추기
 
+        foreach (string message in slideStr)
+        {
+            coachingText.text = message;
+            yield return new WaitForSecondsRealtime(2f); // 게임 멈춰도 시간 흐르게
+        }
+        tutorialPanel.SetActive(false);
+        Time.timeScale = 1f; // 게임 시작
+
+        yield return StartCoroutine(TSlide());   // 슬라이드
+        PerfectText();
+        yield return new WaitForSecondsRealtime(2f); // 텍스트 확인할때 까지 2초 기다리기
+        //tutorialPanel.SetActive(true);
+        //coachingText.text = "잘했어!";
     }
 
     IEnumerator TJump()
@@ -48,6 +62,14 @@ public class TutorialManager : MonoBehaviour
         tutorialPanel.SetActive(true);
     }
 
+    IEnumerator TSlide()
+    {
+        yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.LeftShift));
+        tutorialPanel.SetActive(true);
+    }
 
-  
+    string PerfectText()
+    {
+        return coachingText.text = "잘했어";
+    }
 }
