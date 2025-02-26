@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Net.NetworkInformation;
 using UnityEngine;
 
 public class CharAnimation : MonoBehaviour
@@ -13,14 +12,13 @@ public class CharAnimation : MonoBehaviour
     protected Animator animator;
     private Renderer characterRenderer;
     private Material characterMaterial;
-    private bool isDamageActive = false;
+    private bool isDamageActive = false; // 내가 맞고 있는지
 
-    public float BlinkDamageColor = 0.1f;
+    public float BlinkDamageColor = 0.1f; // 깜박거림 속도
     private Coroutine damageCoroutine;
 
     private Color originalColor;
     private float blinkAlpha = 0f;
-
 
     private void Awake()
     {
