@@ -1,11 +1,17 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Palettle : MonoBehaviour
+public class PalettleColor : MonoBehaviour
 {
-    public void SetCharacterColor(SpriteRenderer spr)
+    [SerializeField] private SpriteRenderer spr;
+
+    private void Start()
+    {
+        Button button = GetComponent<Button>();
+        button.onClick.AddListener(TaskButton);
+    }
+    private void TaskButton()
     {
         Color color = GetComponent<Image>().color;
         spr.color = color;
