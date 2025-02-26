@@ -102,6 +102,13 @@ public class Player : MonoBehaviour
 
             StartCoroutine(GodMode());
         }
+
+        if(collision.CompareTag("Item"))
+        {
+            BaseItem item = collision.GetComponent<BaseItem>();
+            item.Use();
+            Destroy(item.gameObject);
+        }
     }
 
     private IEnumerator GodMode()
