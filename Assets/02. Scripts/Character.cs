@@ -183,13 +183,12 @@ public class Character : MonoBehaviour
     {
         if (isDead) return;
 
-
-        //if (collision.gameObject.CompareTag("Ground"))
-        //{
-        //    isGround = true;
-        //    isJumping = false;
-        //    jumpCount = 0;
-        //}
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            isGround = true;
+            isJumping = false;
+            jumpCount = 0;
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
