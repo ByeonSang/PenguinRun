@@ -223,9 +223,16 @@ public class Character : MonoBehaviour
         //아이템과 닿으면 아이템 사용
         if (collision.CompareTag("Item"))
         {
-            IUseable item = collision.gameObject.GetComponent<IUseable>();
+            BaseItem item = collision.gameObject.GetComponent<BaseItem>();
             item.Use();
-            Destroy(collision.gameObject);
+            if(item.ItemID == 2)
+            {
+                return;
+            }
+            else
+            {
+                Destroy(collision.gameObject);
+            }
         }
 
         // 장애물 닿을시 체력 감소

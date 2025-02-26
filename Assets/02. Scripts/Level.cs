@@ -11,7 +11,7 @@ public class Level : MonoBehaviour
     public Vector3 ObstacleLastPosition = Vector3.zero;
 
     private ItemSpawner[] itemSpawners;
-    public float bgSpeed = 1f;
+    public float bgSpeed;
     public float bgTime =0f;
     BoxCollider2D collider;
     public bool isFirst;
@@ -23,9 +23,9 @@ public class Level : MonoBehaviour
     public void Update()
     {
 
-        if ((bgTime >= 5)) // bgTime�� 5�̻��̸�
+        if ((bgTime >= 10)) // bgTime�� 5�̻��̸�
         {
-            bgSpeed += 0.5f; // bground speed 0.5  ���
+            bgSpeed += 0.25f; // bground speed 0.5  ���
             bgTime = 0;
         }
         
