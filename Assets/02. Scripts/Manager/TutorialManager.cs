@@ -82,12 +82,13 @@ public class TutorialManager : MonoBehaviour
             coachingText.text = message;
             yield return new WaitForSecondsRealtime(2f);
         }
+        yield return new WaitForSecondsRealtime(2f);
         tutorialPanel.SetActive(false);
        
         Time.timeScale = 1f;
 
         tutorialPanel.SetActive(true);
-        yield return new WaitForSecondsRealtime(5f);
+        yield return new WaitForSecondsRealtime(7f);
         coachingText.text = "수고했어 이제 시작화면으로 돌아가서 진짜 게임을 해봐!";
         yield return new WaitForSecondsRealtime(5f);
 
