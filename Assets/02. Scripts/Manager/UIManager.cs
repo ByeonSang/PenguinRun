@@ -6,6 +6,27 @@ using TMPro;
 
 public class UIManager : MonoBehaviour
 {
+    static private UIManager instance;
+    public static UIManager Instance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                instance = (UIManager)GameObject.FindObjectOfType(typeof(UIManager));
+                if (Instance == null)
+                {
+                    GameObject obj = new GameObject(typeof(UIManager).Name, typeof(UIManager));
+                    instance = obj.GetComponent<UIManager>();
+                    DontDestroyOnLoad(obj);
+                }
+            }
+
+            return instance;
+        }
+    }
+
+
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI bestScoreText;
     public TextMeshProUGUI resultScoreText;
@@ -14,17 +35,21 @@ public class UIManager : MonoBehaviour
     // public Animator animator;
     // public ScoreManager scoreManager;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
-        // animator = GetComponent<Animator>();
-        // scoreManager = GetComponent<ScoreManager>();
+        DontDestroyOnLoad(gameObject);
+    }
+    
+
+    public void MoveScene(int sceneIndex)
+    {
+        SceneManager.LoadScene(sceneIndex);
     }
 
     // Update is called once per frame
     void Update()
     {
-        UpdateUI();
+        //UpdateUI();
     }
 
     public void GameOver()

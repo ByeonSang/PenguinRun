@@ -7,6 +7,8 @@ TagManager:
   - Background
   - Looper
   - Item
+  - Obstacle
+  - Ground
   layers:
   - Default
   - TransparentFX

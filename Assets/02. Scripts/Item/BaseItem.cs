@@ -9,7 +9,14 @@ public interface IUseable
 public class BaseItem : MonoBehaviour, IUseable
 {
     protected int ItemID;
-    //protected Player player;
+    protected Character character;
+    protected AudioManager audioManager = AudioManager.Instance;
+
+    private void Awake()
+    {
+        Init();
+    }
+
     public virtual void Use()
     {
 
@@ -17,14 +24,6 @@ public class BaseItem : MonoBehaviour, IUseable
 
     public  virtual void Init()//Instantiate해준 후 실행
     {
-
+        character = FindObjectOfType<Character>();
     }
-    //protected virtual void OnCollisionEnter2D(Collision2D collision) // 플레이어한테 이 로직 넘겨 주기
-    //{
-    //    if (LayerMask.NameToLayer(collision.gameObject.name).Equals(LayerMask.NameToLayer("Player")))
-    //    {
-    //        Use();
-    //        Destroy(this);//넘겨줬을 때 collision.gameObject로 변경
-    //    }
-    //}
 }
