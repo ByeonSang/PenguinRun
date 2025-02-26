@@ -40,7 +40,7 @@ public class SpeedItem : BaseItem
         {
             level.bgSpeed += speed;
         }
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(4);
         EndBuffEffect();
     }
 

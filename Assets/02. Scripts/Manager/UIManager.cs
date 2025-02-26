@@ -26,11 +26,6 @@ public class UIManager : MonoBehaviour
         }
     }
 
-
-    public TextMeshProUGUI scoreText;
-    public TextMeshProUGUI bestScoreText;
-    public TextMeshProUGUI resultScoreText;
-    public TextMeshProUGUI resultBestScoreText;
     public GameObject gameOverUI;
     // public Animator animator;
     // public ScoreManager scoreManager;
@@ -54,21 +49,14 @@ public class UIManager : MonoBehaviour
 
     public void GameOver()
     {
+        Time.timeScale = 0f;
         Score.Instance.SaveScore();
         gameOverUI.SetActive(true);
     }
 
-    public void UpdateUI()
-    {
-        scoreText.text = Score.Instance.CurrentScore.ToString();
-        resultScoreText.text = scoreText.text;
-        
-        bestScoreText.text = Score.Instance.BestScore.ToString();
-        resultBestScoreText.text = bestScoreText.text;
-    }
-
     public void Restart()
     {
+        Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
