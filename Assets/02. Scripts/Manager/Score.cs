@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ScoreManager : MonoBehaviour
+public class Score : MonoBehaviour
 {
-    public static ScoreManager Instance { get; private set; } // 단 하나 존재 (고정), 프리펩에도 사용 가능
+    public static Score Instance { get; private set; } // 단 하나 존재 (고정), 프리펩에도 사용 가능
     //프리펩의 컴포넌트 필드에는 씬 안에 있는 스크립트를 등록 할 수 없어서 등록할 필요가 없는 싱글톤은 사용 가능함.
     //기본적으로는 스크립트 등록을 하고 그 이름으로 매서드를 사용함.
 
-    public int Score { get; private set; } = 0;     // 현재점수
+    public int CurrentScore { get; private set; } = 0;     // 현재점수
     public int BestScore { get; private set; } = 0; // 최대점수
 
     private void Awake()
@@ -44,14 +44,14 @@ public class ScoreManager : MonoBehaviour
     /// <param name="num">증가시킬 점수</param>
     public void AddScore(int num)
     {
-        Score += num;
+        CurrentScore += num;
     }
 
     public void SaveScore()
     {
-        if (BestScore < Score)
+        if (BestScore < CurrentScore)
         {
-            BestScore = Score;
+            BestScore = CurrentScore;
             PlayerPrefs.SetInt("BestScore", BestScore); // (이름, 값)
         }
     }

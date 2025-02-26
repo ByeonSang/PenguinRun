@@ -29,16 +29,16 @@ public class UIManager : MonoBehaviour
 
     public void GameOver()
     {
-        ScoreManager.Instance.SaveScore();
+        Score.Instance.SaveScore();
         gameOverUI.SetActive(true);
     }
 
     public void UpdateUI()
     {
-        scoreText.text = ScoreManager.Instance.Score.ToString();
+        scoreText.text = Score.Instance.CurrentScore.ToString();
         resultScoreText.text = scoreText.text;
         
-        bestScoreText.text = ScoreManager.Instance.BestScore.ToString();
+        bestScoreText.text = Score.Instance.BestScore.ToString();
         resultBestScoreText.text = bestScoreText.text;
     }
 
