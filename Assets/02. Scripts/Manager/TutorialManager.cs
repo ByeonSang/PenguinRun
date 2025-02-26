@@ -11,10 +11,12 @@ public class TutorialManager : MonoBehaviour
     public TextMeshProUGUI coachingText;
     private bool isTutorialActive = true; // 튜토리얼 진행 중 여부
     public GameObject tutorialPanel; // 텍스트 박스 UI 오브젝트
-
+    public GameObject obs1;
     string[] jumpStr = { "안녕! 펭귄런에 온 걸 환영해! ", "간단한 펭귄런 조작법을 배워볼거야", "스페이스바를 눌러, 점프키를 배워보자" };
     string[] slideStr = { "이제 슬라이딩을 배워볼거야", "왼쪽 쉬프트키를 눌러서 슬라이딩을 해보자" };
-    bool isTextBox = false;
+    string[] twoJumpStr = { "이제 이단점프를 배워볼까?", "스페이스바를 두 번 눌러서 이단점프를 해보자!" };
+    private bool firstJump = false;
+    private bool secondJump = false;
     void Start()
     {
         StartCoroutine(WriteText());
@@ -35,8 +37,9 @@ public class TutorialManager : MonoBehaviour
         Time.timeScale = 1f; // 게임 동작
         yield return StartCoroutine(TJump()); // 점프 실행
         PerfectText();
-
         yield return new WaitForSecondsRealtime(2f); // 텍스트 확인할때 까지 2초 기다리기
+
+        // 슬라이드 배워보기
         Time.timeScale = 0f; // 게임 멈추기
 
         foreach (string message in slideStr)
@@ -50,8 +53,20 @@ public class TutorialManager : MonoBehaviour
         yield return StartCoroutine(TSlide());   // 슬라이드
         PerfectText();
         yield return new WaitForSecondsRealtime(2f); // 텍스트 확인할때 까지 2초 기다리기
-        //tutorialPanel.SetActive(true);
-        //coachingText.text = "잘했어!";
+
+        // 이단점프 배워보기
+        Time.timeScale = 0f; // 게임 멈추기
+        foreach (string message in twoJumpStr)
+        {
+            coachingText.text = message;
+            yield return new WaitForSecondsRealtime(2f); // 게임 멈춰도 시간 흐르게
+        }
+        tutorialPanel.SetActive(false);
+        Time.timeScale = 1f;
+        yield return StartCoroutine(SecondJump());
+        if (secondJump)
+            PerfectText();
+        yield return new WaitForSecondsRealtime(2f);
     }
 
     IEnumerator TJump()
@@ -68,6 +83,39 @@ public class TutorialManager : MonoBehaviour
         tutorialPanel.SetActive(true);
     }
 
+  
+    IEnumerator SecondJump()
+    {
+        firstJump = false;
+        secondJump = false;
+
+        // 첫 번째 점프 감지
+        yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space));
+        firstJump = true; // 첫 번째 점프 완료
+        coachingText.text = "한 번 더!";
+        tutorialPanel.SetActive(true);
+
+        // 일정 시간 내에 두 번째 점프 감지 (0.5초 제한)
+        float timer = 0f;
+        float maxTime = 2f; // 두 번째 점프를 받을 최대 시간
+        while (timer < maxTime)
+        {
+            timer += Time.unscaledDeltaTime; // Time.timeScale = 0f 상태에서도 동작
+            yield return null;
+
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                secondJump = true;
+                tutorialPanel.SetActive(true);
+                PerfectText();
+                yield break; // 두 번째 점프가 감지되면 종료
+            }
+        }
+
+        // 제한 시간 초과 시 초기화
+        firstJump = false;
+    }
+ 
     string PerfectText()
     {
         return coachingText.text = "잘했어";
