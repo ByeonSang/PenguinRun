@@ -11310,6 +11310,10 @@ PrefabInstance:
       propertyPath: m_Radius
       value: 0.7
       objectReference: {fileID: 0}
+    - target: {fileID: 4950068686630423170, guid: b1697263939855742881c6f9f100fe5f, type: 3}
+      propertyPath: BlinkDamageColor
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 6883345170822654285, guid: b1697263939855742881c6f9f100fe5f, type: 3}
       propertyPath: m_Name
       value: Character
