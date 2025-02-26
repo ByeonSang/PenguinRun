@@ -7,7 +7,7 @@ public class StartScene : MonoBehaviour
 {
     public void PlayScene()
     {
-        SceneManager.LoadScene("Kyj");
+        SceneManager.LoadScene("MainScene");
     }
 
     public void ExitScene()

@@ -21,8 +21,13 @@ public class CharAnimation : MonoBehaviour
 
     public void Damage()
     {
-        animator.SetTrigger(IsDamage);
+        animator.SetBool(IsDamage, true);
     }    
+
+    public void OffDamage()
+    {
+        animator.SetBool(IsDamage, false);
+    }
 
     public void Jump()
     {        

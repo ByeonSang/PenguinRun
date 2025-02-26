@@ -5,14 +5,13 @@ using UnityEngine;
 public class SpeedItem : BaseItem
 {
     [SerializeField] private float speed;
-    private Level level;
-    //private Player player;
+    private Level[] levels;
     public static Coroutine speedCo = null;
 
     public override void Init()
     {
-        level = FindObjectOfType<Level>();
         base.Init();
+        levels = FindObjectsOfType<Level>();
         ItemID = 3;
     }
     public override void Use()
@@ -28,26 +27,28 @@ public class SpeedItem : BaseItem
             EndBuffEffect();
             speedCo = StartCoroutine(SpeedingCo(speed));
         }
+        audioManager.PlaySFX("Eating02");
     }
 
     private IEnumerator SpeedingCo(float speed)
     {
-        //player.IsSpeeding = true;
-        level.bgSpeed += speed;
+        character.isSpeeding = true; //플레이어 장애물 파괴 모드     
+        foreach (Level level in levels) 
+        {
+            level.bgSpeed += speed;
+        }
         yield return new WaitForSeconds(4);
         EndBuffEffect();
     }
 
     private void EndBuffEffect()
     {
-        //player.IsSpeeding = false;
-        level.bgSpeed -= speed;
+        character.isSpeeding = false;
+        foreach (Level level in levels)
+        {
+            level.bgSpeed -= speed;
+        }
         speedCo = null;
         Destroy(this.gameObject);
     }
-
-    //protected override void OnCollisionEnter2D(Collision2D collision)
-    //{
-    //    base.OnCollisionEnter2D(collision);
-    //}
 }
