@@ -15,6 +15,6 @@ public class HealItem : BaseItem
     {
         base.Use();
         character.Heal(value);
-        //audioManager.PlaySFX("Eating02");
+        audioManager.PlaySFX("Eating01");
     }
 }

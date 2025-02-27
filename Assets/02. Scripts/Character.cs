@@ -252,6 +252,7 @@ public class Character : MonoBehaviour
             item.Use();
             if (item.ItemID == 2)
             {
+                Debug.Log("스피드 아이템 먹음");
                 return;
             }
             else
