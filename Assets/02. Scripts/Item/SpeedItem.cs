@@ -24,13 +24,13 @@ public class SpeedItem : BaseItem
         {
             speedCo = StartCoroutine(SpeedingCo(speed));//스피드 값은 언제든 변경 가능
         }
-        else if(speedCo != null)
+        else
         {
             StopAllCoroutines();
             EndBuffEffect();
             speedCo = StartCoroutine(SpeedingCo(speed));
         }
-        //audioManager.PlaySFX("Eating02");
+        audioManager.PlaySFX("Eating01");
     }
 
     private IEnumerator SpeedingCo(float speed)

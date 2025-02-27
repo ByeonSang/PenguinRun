@@ -15,6 +15,6 @@ public class ScoreItem : BaseItem
         base.Use();
         GameManager.Instance.CurrentScore  += value;
         UIManager.Instance.updateUI();
-        //audioManager.PlaySFX("Eating01");
+        audioManager.PlaySFX("Eating02");
     }
 }
