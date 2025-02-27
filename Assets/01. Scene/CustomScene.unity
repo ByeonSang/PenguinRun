@@ -275,7 +275,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c1cc25daf1295441804ffcc2f74464e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  seceneIndex: 4
+  seceneIndex: 2
 --- !u!1 &373138717
 GameObject:
   m_ObjectHideFlags: 0

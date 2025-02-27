@@ -1,7 +1,9 @@
+using System.Collections;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
+using UnityEngine.TextCore.Text;
 using UnityEngine.UI;
 
 public class Character : MonoBehaviour
@@ -55,18 +57,21 @@ public class Character : MonoBehaviour
     public float GravityTime = 0f;
     public float GravitySpeed = 0.5f;
 
-    //스피드 아이템 관련 불변수
+    //스피드 아이템 관련
+    //private Level[] levels;
+    //public static Coroutine speedCo = null;
     public bool isSpeeding = false;
 
     Color originColor = Color.white;
 
     private void Start()
     {
+        GameManager.Instance.character = this;
         charAnimation = GetComponentInChildren<CharAnimation>();
         _rigidbody = GetComponent<Rigidbody2D>();
         _circleCollider = GetComponent<CircleCollider2D>();
         _spriteRenderer = GetComponentInChildren<SpriteRenderer>();
-
+        //levels = FindObjectsOfType<Level>();
 
         if (charAnimation == null)
             Debug.LogError("Animator is null");
@@ -250,15 +255,7 @@ public class Character : MonoBehaviour
         {
             BaseItem item = collision.gameObject.GetComponent<BaseItem>();
             item.Use();
-            if (item.ItemID == 2)
-            {
-                Debug.Log("스피드 아이템 먹음");
-                return;
-            }
-            else
-            {
-                Destroy(collision.gameObject);
-            }
+            Destroy(collision.gameObject);
         }
 
         // 장애물 닿을시 체력 감소
@@ -299,7 +296,7 @@ public class Character : MonoBehaviour
                     }
                 }
             }
-        }        
+        }
     }
 
     // 데미지 입었을 때
@@ -370,4 +367,44 @@ public class Character : MonoBehaviour
         }
         EventSystem.current.SetSelectedGameObject(null);
     }
+
+
+
+    //public IEnumerator SpeedingCo(float speed)
+    //{
+    //    Debug.Log("켜진다.");
+    //    isSpeeding = true; //플레이어 장애물 파괴 모드     
+    //    foreach (Level level in levels)
+    //    {
+    //        level.bgSpeed += speed;
+    //    }
+    //    yield return new WaitForSeconds(4);
+    //    EndBuffEffect(speed);
+    //}
+
+    //private void EndBuffEffect(float speed)
+    //{
+    //    Debug.Log("꺼진다.");
+    //    isSpeeding = false;
+    //    foreach (Level level in levels)
+    //    {
+    //        level.bgSpeed -= speed;
+    //    }
+    //    speedCo = null;
+    //    Destroy(this.gameObject);
+    //}
+
+    //public void UseSpeed(float speed)
+    //{
+    //    if (speedCo == null)
+    //    {
+    //        speedCo = StartCoroutine(SpeedingCo(speed));//스피드 값은 언제든 변경 가능
+    //    }
+    //    else
+    //    {
+    //        StopAllCoroutines();
+    //        EndBuffEffect(speed);
+    //        speedCo = StartCoroutine(SpeedingCo(speed));
+    //    }
+    //}
 }

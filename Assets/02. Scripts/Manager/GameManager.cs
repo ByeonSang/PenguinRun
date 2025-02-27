@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -9,14 +10,28 @@ public class GameManager : MonoBehaviour
     private static GameManager instance;
     public static GameManager Instance {  get { return instance; } }
 
+    public Character character { get; set; }
+    private float time = 0f;
+    private float speedDuration = 4f;
     public int CurrentScore { get; set; } = 0;     // 현재점수
     public int BestScore { get; private set; } = 0; // 최대점수
+
+    private float plusSpeed = 0;
+    public float PlusSpeed
+    {
+        get { return plusSpeed; }
+        set
+        {
+            plusSpeed = value;
+            time = speedDuration;           
+        }
+    }
 
     public bool IsGameOver { get; set; }
 
     private void Awake()
     {
-        if(instance == null)
+        if (instance == null)
         {
             instance = this;
             DontDestroyOnLoad(this);
@@ -25,7 +40,28 @@ public class GameManager : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
-        
+
+        LoadBestScore();
+    }
+
+
+
+    private void Update()
+    {
+        time-= Time.deltaTime;
+        if(time <= 0f &&character!=null)
+        {
+            character.isSpeeding = false;
+            plusSpeed = 0;
+        }
+    }
+
+    private void LoadBestScore()
+    {
+        if (PlayerPrefs.HasKey("BestScore"))
+            BestScore = PlayerPrefs.GetInt("BestScore");
+        else
+            BestScore = 0;
     }
 
     public void SaveScore(int currentscore)

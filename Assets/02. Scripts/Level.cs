@@ -33,7 +33,7 @@ public class Level : MonoBehaviour
             bgTime = 0;
         }
         
-        transform.position += Vector3.left * bgSpeed * Time.deltaTime;
+        transform.position += Vector3.left * (bgSpeed+GameManager.Instance.PlusSpeed) * Time.deltaTime;
         bgTime += 1f *Time.deltaTime;
 
     }
