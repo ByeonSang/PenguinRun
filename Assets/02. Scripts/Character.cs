@@ -1,6 +1,7 @@
 using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Character : MonoBehaviour
@@ -8,34 +9,51 @@ public class Character : MonoBehaviour
     protected CharAnimation charAnimation;
     protected Rigidbody2D _rigidbody;
     protected CircleCollider2D _circleCollider;
-    protected SpriteRenderer _spriteRenderer;    
+    protected SpriteRenderer _spriteRenderer;
+    public Level currentLevel;
 
-    public float JumpForce = 7.5f;
-
+    // 죽음 관련
     public bool isDead = false;
     float deathCooldown = 0;
 
+    // 점프 관련
+    public float JumpForce = 7.5f;
     private bool isJumping = false;
-    private bool isSliding = false;
-    private bool isGround = true;
     private int jumpCount = 0;
+    private bool isGround = true;
+    public Button JumpButton;
 
-    //피격 시 무적
+    // 슬라이딩 관련
+    private bool isSliding = false;
+    public Button SlideButton;
+
+    // 피격 관련
     private bool isInvincible = false; // 무적 상태
     public float invincibleDuration = 2f; // 무적 지속 시간
     private float invincibleTime = 0f;    // 무적 시작 시간
+    private float colliderRadius;
 
+    // 체력 관련
     public Slider HealthSlider;
     public float MaxHealth = 100f;
-    public float CurrentHealth;
+    private float currentHealth;
+    public float CurrentHealth
+    {
+        get { return currentHealth; }
+        set
+        {
+            currentHealth = value;
+            if (currentHealth <= 0)
+            {
+                currentHealth = 0;
+                GameManager.Instance.GameOver();
+            }
+        }
+    }
 
-    public Button JumpButton;
-    public Button SlideButton;    
-
+    // 중력 관련
     public float GravityTime = 0f;
     public float GravitySpeed = 0.5f;
-
-    private float colliderRadius;
 
     //스피드 아이템 관련 불변수
     public bool isSpeeding = false;
@@ -69,8 +87,6 @@ public class Character : MonoBehaviour
 
         #region colorChange
 
-
-
         if (PlayerPrefs.HasKey("PlayerColor"))
         {
             string str = PlayerPrefs.GetString("PlayerColor");
@@ -85,8 +101,8 @@ public class Character : MonoBehaviour
         #endregion
 
         JumpButton.onClick.AddListener(JumpButtonClick);
-        SlideButton.onClick.AddListener(SlideButtonClick);     
-        
+        SlideButton.onClick.AddListener(SlideButtonClick);
+
         colliderRadius = _circleCollider.radius;
     }
 
@@ -98,7 +114,7 @@ public class Character : MonoBehaviour
             {
                 if (Input.GetKeyDown(KeyCode.Space))
                 {
-                    UIManager.Instance.Restart();
+                    GameManager.Instance.Restart();
                 }
             }
             else
@@ -162,9 +178,7 @@ public class Character : MonoBehaviour
         AudioManager.Instance.PlaySFX("Jump");
         isJumping = true;
         isGround = false;
-
         jumpCount++;
-
 
         if (charAnimation != null)
         {
@@ -179,7 +193,6 @@ public class Character : MonoBehaviour
         }
 
         _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, JumpForce);
-
         Invoke(nameof(ResetJump), 1f);
     }
 
@@ -215,7 +228,6 @@ public class Character : MonoBehaviour
         }
     }
 
-
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (isDead) return;
@@ -250,7 +262,10 @@ public class Character : MonoBehaviour
         {
             if (isSpeeding)
             {
+                //스피드 모드일 때는 부딪히는 장애물을 비활성화 시킴
                 collision.gameObject.SetActive(false);
+                if (SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(2))
+                    currentLevel.obstacles.Add(collision.gameObject);
                 return;
             }
 
@@ -259,6 +274,14 @@ public class Character : MonoBehaviour
                 if (CurrentHealth > 0)
                 {
                     TakeDamage(20);
+                    //데미지를 받으면 콤보체커의 콜라이더를 비활성화 시킴
+                    if (SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(2))
+                    {
+                        ComboChecker comboChecker = collision.GetComponentInChildren<ComboChecker>();
+                        currentLevel.comboCheckers.Add(comboChecker);
+                        comboChecker.col.enabled = false;
+
+                    }
                     isInvincible = true;
                     invincibleTime = Time.time;
                 }
@@ -270,7 +293,6 @@ public class Character : MonoBehaviour
                         charAnimation.Dead();
                         deathCooldown = 1f;
                     }
-                    UIManager.Instance.GameOver();
                 }
             }
         }
@@ -282,6 +304,11 @@ public class Character : MonoBehaviour
         CurrentHealth -= damage;
         CurrentHealth = Mathf.Clamp(CurrentHealth, 0, MaxHealth);
         UpdateHpBar();
+        if (QuestManager.Instance != null)
+        {
+            QuestManager.Instance.currentCombo = 0;
+        }
+
         if (charAnimation != null)
         {
             charAnimation.Damage();
@@ -294,7 +321,6 @@ public class Character : MonoBehaviour
     {
         charAnimation.OffDamage();
     }
-
 
     // 체력회복
     public void Heal(float healAmout)
@@ -313,7 +339,6 @@ public class Character : MonoBehaviour
             isDead = true;
             charAnimation.Dead();
             deathCooldown = 1f;
-            UIManager.Instance.GameOver();
         }
     }
 
@@ -339,7 +364,6 @@ public class Character : MonoBehaviour
             Slide();
             Invoke(nameof(StopSlide), 1f);
         }
-
         EventSystem.current.SetSelectedGameObject(null);
-    }    
+    }
 }

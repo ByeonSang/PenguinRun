@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
+using System;
 
 public class UIManager : MonoBehaviour
 {
+    public Action updateUI;
+
     static private UIManager instance;
     public static UIManager Instance
     {
@@ -26,7 +29,7 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public GameObject gameOverUI;
+   
     // public Animator animator;
     // public ScoreManager scoreManager;
 
@@ -36,32 +39,5 @@ public class UIManager : MonoBehaviour
     }
     
 
-    public void MoveScene(int sceneIndex)
-    {
-        SceneManager.LoadScene(sceneIndex);
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        //UpdateUI();
-    }
-
-    public void GameOver()
-    {
-        Time.timeScale = 0f;
-        Score.Instance.SaveScore();
-        gameOverUI.SetActive(true);
-    }
-
-    public void Restart()
-    {
-        Time.timeScale = 1f;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-    }
-
-    public void Title()
-    {
-        SceneManager.LoadScene("StartScene");
-    }
 }
