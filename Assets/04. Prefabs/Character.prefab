@@ -168,7 +168,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 5
 --- !u!58 &1893621058905957751
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -224,7 +224,6 @@ MonoBehaviour:
   invincibleDuration: 1.5
   HealthSlider: {fileID: 0}
   MaxHealth: 100
-  CurrentHealth: 0
   GravityTime: 5
   GravitySpeed: 0.5
   isSpeeding: 0
