@@ -5,7 +5,6 @@ using UnityEngine;
 public class ScoreItem : BaseItem
 {
     [SerializeField] private int value;
-    private Score scoreManager = Score.Instance;
     public override void Init()
     {
         base.Init();
@@ -14,7 +13,8 @@ public class ScoreItem : BaseItem
     public override void Use()
     {
         base.Use();
-        scoreManager.AddScore(value);
+        GameManager.Instance.CurrentScore  += value;
+        UIManager.Instance.updateUI();
         //audioManager.PlaySFX("Eating01");
     }
 }

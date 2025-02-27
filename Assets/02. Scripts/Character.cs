@@ -1,6 +1,7 @@
 using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Character : MonoBehaviour
@@ -9,7 +10,7 @@ public class Character : MonoBehaviour
     protected Rigidbody2D _rigidbody;
     protected CircleCollider2D _circleCollider;
     protected SpriteRenderer _spriteRenderer;
-    public Level currentLevel;    
+    public Level currentLevel;
 
     // 죽음 관련
     public bool isDead = false;
@@ -35,11 +36,24 @@ public class Character : MonoBehaviour
     // 체력 관련
     public Slider HealthSlider;
     public float MaxHealth = 100f;
-    public float CurrentHealth;
-            
+    private float currentHealth;
+    public float CurrentHealth
+    {
+        get { return currentHealth; }
+        set
+        {
+            currentHealth = value;
+            if (currentHealth <= 0)
+            {
+                currentHealth = 0;
+                GameManager.Instance.GameOver();
+            }
+        }
+    }
+
     // 중력 관련
     public float GravityTime = 0f;
-    public float GravitySpeed = 0.5f;    
+    public float GravitySpeed = 0.5f;
 
     //스피드 아이템 관련 불변수
     public bool isSpeeding = false;
@@ -87,8 +101,8 @@ public class Character : MonoBehaviour
         #endregion
 
         JumpButton.onClick.AddListener(JumpButtonClick);
-        SlideButton.onClick.AddListener(SlideButtonClick);     
-        
+        SlideButton.onClick.AddListener(SlideButtonClick);
+
         colliderRadius = _circleCollider.radius;
     }
 
@@ -100,7 +114,7 @@ public class Character : MonoBehaviour
             {
                 if (Input.GetKeyDown(KeyCode.Space))
                 {
-                    UIManager.Instance.Restart();
+                    GameManager.Instance.Restart();
                 }
             }
             else
@@ -250,7 +264,8 @@ public class Character : MonoBehaviour
             {
                 //스피드 모드일 때는 부딪히는 장애물을 비활성화 시킴
                 collision.gameObject.SetActive(false);
-                currentLevel.obstacles.Add(collision.gameObject);
+                if (SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(2))
+                    currentLevel.obstacles.Add(collision.gameObject);
                 return;
             }
 
@@ -260,10 +275,13 @@ public class Character : MonoBehaviour
                 {
                     TakeDamage(20);
                     //데미지를 받으면 콤보체커의 콜라이더를 비활성화 시킴
-                    ComboChecker comboChecker = collision.GetComponentInChildren<ComboChecker>();
-                    currentLevel.comboCheckers.Add(comboChecker);
-                    comboChecker.col.enabled = false;
+                    if (SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(2))
+                    {
+                        ComboChecker comboChecker = collision.GetComponentInChildren<ComboChecker>();
+                        currentLevel.comboCheckers.Add(comboChecker);
+                        comboChecker.col.enabled = false;
 
+                    }
                     isInvincible = true;
                     invincibleTime = Time.time;
                 }
@@ -275,7 +293,6 @@ public class Character : MonoBehaviour
                         charAnimation.Dead();
                         deathCooldown = 1f;
                     }
-                    UIManager.Instance.GameOver();
                 }
             }
         }
@@ -287,7 +304,10 @@ public class Character : MonoBehaviour
         CurrentHealth -= damage;
         CurrentHealth = Mathf.Clamp(CurrentHealth, 0, MaxHealth);
         UpdateHpBar();
-        QuestManager.Instance.currentCombo = 0;
+        if (QuestManager.Instance != null)
+        {
+            QuestManager.Instance.currentCombo = 0;
+        }
 
         if (charAnimation != null)
         {
@@ -319,7 +339,6 @@ public class Character : MonoBehaviour
             isDead = true;
             charAnimation.Dead();
             deathCooldown = 1f;
-            UIManager.Instance.GameOver();
         }
     }
 
@@ -346,5 +365,5 @@ public class Character : MonoBehaviour
             Invoke(nameof(StopSlide), 1f);
         }
         EventSystem.current.SetSelectedGameObject(null);
-    }    
+    }
 }

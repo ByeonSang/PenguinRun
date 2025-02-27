@@ -5,69 +5,58 @@ using TMPro;
 
 public class Score : MonoBehaviour
 {
-    public static Score Instance { get; private set; } // 단 하나 존재 (고정), 프리펩에도 사용 가능
-    //프리펩의 컴포넌트 필드에는 씬 안에 있는 스크립트를 등록 할 수 없어서 등록할 필요가 없는 싱글톤은 사용 가능함.
-    //기본적으로는 스크립트 등록을 하고 그 이름으로 매서드를 사용함.
-
-    public int CurrentScore { get; private set; } = 0;     // 현재점수
-    public int BestScore { get; private set; } = 0; // 최대점수
-
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI bestScoreText;
     public TextMeshProUGUI resultScoreText;
     public TextMeshProUGUI resultBestScoreText;
 
+    public GameObject gameOverUI;
+
+    private bool onResultMenu = false;
+
     private void Awake()
     {
-        // 싱글톤 인스턴스 설정
-        if (Instance == null)
-        {
-            Instance = this;
-
-            // 이 오브젝트가 씬이 전환되어도 유지되도록 설정 (필요한 경우)
-            DontDestroyOnLoad(gameObject);
-        }
-        else if (Instance != this)
-        {
-            Debug.LogWarning("ScoreManager 인스턴스가 중복되어 제거됩니다!", gameObject);
-            Destroy(gameObject);
-        }
+        UIManager.Instance.updateUI += UpdateUI;
     }
 
-    void Start()
+    private void Start()
     {
-        
+        Time.timeScale = 1;
+        GameManager.Instance.IsGameOver = false;
+        onResultMenu = false;
+        gameOverUI.SetActive(false);
     }
-
-    void Update()
-    {
-        
-    }
-
-    public void UpdateUI()
-    {
-        scoreText.text = CurrentScore.ToString();
-        resultScoreText.text = scoreText.text;
-        
-        bestScoreText.text = BestScore.ToString();
-        resultBestScoreText.text = bestScoreText.text;
-    }
-
     /// <summary>
     /// 점수를 올리는 메서드
     /// </summary>
     /// <param name="num">증가시킬 점수</param>
-    public void AddScore(int num)
+
+    private void Update()
     {
-        CurrentScore += num;
+        if (GameManager.Instance.IsGameOver && onResultMenu ==false)
+        {
+            SaveScore();
+            UpdateUI();
+            gameOverUI.SetActive(true);
+            onResultMenu = true;
+        }
+    }
+
+    public void UpdateUI()
+    {
+        GameManager gameManager = GameManager.Instance;
+        scoreText.text = gameManager.CurrentScore.ToString();
+        resultScoreText.text = scoreText.text;
+
+        bestScoreText.text = gameManager.BestScore.ToString();
+        resultBestScoreText.text = bestScoreText.text;
     }
 
     public void SaveScore()
     {
-        if (BestScore < CurrentScore)
-        {
-            BestScore = CurrentScore;
-            PlayerPrefs.SetInt("BestScore", BestScore); // (이름, 값)
-        }
+        GameManager gameManager = GameManager.Instance;
+        gameManager.SaveScore(gameManager.CurrentScore);
     }
+
+
 }
