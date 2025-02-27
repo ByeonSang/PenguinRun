@@ -661,7 +661,7 @@ GameObject:
   - component: {fileID: 199691492}
   m_Layer: 0
   m_Name: Looper
-  m_TagString: Untagged
+  m_TagString: Looper
   m_Icon: {fileID: 3306451490063965843, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -747,7 +747,7 @@ Transform:
   m_GameObject: {fileID: 199691491}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -38, y: 0, z: 0}
+  m_LocalPosition: {x: -54, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 12, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3088,6 +3088,10 @@ PrefabInstance:
     - target: {fileID: 5835572827558380162, guid: aaa9da154c987e54585c3460ab1b4223, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7637229966400457796, guid: aaa9da154c987e54585c3460ab1b4223, type: 3}
+      propertyPath: numBgCount
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
