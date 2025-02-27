@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,7 +9,9 @@ public class QuestManager : MonoBehaviour
     public static QuestManager Instance { get { return instance; } }
 
     public int currentCombo = 0;
-    public int questSuccessCombo = 10;
+    public int questSuccessCombo = 3;
+
+    public Func<IEnumerator> successQuest;
 
     private void Awake()
     {
@@ -38,8 +41,8 @@ public class QuestManager : MonoBehaviour
     }
     private void SuccessQuest1()
     {
+        StartCoroutine(successQuest());
         //도전과제 성공했다는 UI 오른쪽 밑에 띄우기
-        //시작 창에서 도전과제 확인할 때 성공한 것으로 나오게 하기
     }
 
 
