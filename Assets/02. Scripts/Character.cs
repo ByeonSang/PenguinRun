@@ -236,6 +236,11 @@ public class Character : MonoBehaviour
             isJumping = false;
             jumpCount = 0;
         }
+
+        if (collision.gameObject.CompareTag("Cliff"))
+        {
+            currentHealth = 0;
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -293,7 +298,7 @@ public class Character : MonoBehaviour
                     }
                 }
             }
-        }
+        }        
     }
 
     // 데미지 입었을 때

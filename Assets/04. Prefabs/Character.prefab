@@ -224,7 +224,6 @@ MonoBehaviour:
   invincibleDuration: 1.5
   HealthSlider: {fileID: 0}
   MaxHealth: 100
-  CurrentHealth: 0
   GravityTime: 5
   GravitySpeed: 0.5
   isSpeeding: 0

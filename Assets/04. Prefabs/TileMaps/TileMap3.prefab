@@ -69,6 +69,7 @@ MonoBehaviour:
   obstacleCount: 0
   ObstacleLastPosition: {x: 0, y: 0, z: 0}
   comboCheckers: []
+  obstacles: []
   bgSpeed: 2
   bgTime: 0
   isFirst: 0
@@ -424,7 +425,7 @@ GameObject:
   - component: {fileID: 3222095834660313729}
   m_Layer: 0
   m_Name: Cliff
-  m_TagString: Untagged
+  m_TagString: Cliff
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
