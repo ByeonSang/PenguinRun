@@ -77,8 +77,6 @@ public class Character : MonoBehaviour
         if (_circleCollider == null)
             Debug.LogError("CircleCollider is null");
 
-        _rigidbody.freezeRotation = true;
-
         CurrentHealth = MaxHealth;
         UpdateHpBar();
 
