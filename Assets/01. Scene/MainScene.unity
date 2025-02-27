@@ -1588,36 +1588,8 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 4203278994327882271, guid: 3c4220b217b4d6d40b8c65f0551373f9, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 409621807}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3c4220b217b4d6d40b8c65f0551373f9, type: 3}
---- !u!1 &409621806 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4203278994327882271, guid: 3c4220b217b4d6d40b8c65f0551373f9, type: 3}
-  m_PrefabInstance: {fileID: 409621805}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &409621807
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 409621806}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cbd2e6fdffd07ca4d955372027697e50, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  numBgCount: 2
-  obstacleCount: 0
-  ObstacleLastPosition: {x: 0, y: 0, z: 0}
-  comboCheckers: []
-  obstacles: []
-  bgSpeed: 1
-  bgTime: 0
-  isFirst: 0
 --- !u!1 &441354978
 GameObject:
   m_ObjectHideFlags: 0
@@ -2984,36 +2956,8 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 613824660689607048, guid: f09aef9dced1de047a47c4c7f3b92f7c, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 749911918}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f09aef9dced1de047a47c4c7f3b92f7c, type: 3}
---- !u!1 &749911917 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 613824660689607048, guid: f09aef9dced1de047a47c4c7f3b92f7c, type: 3}
-  m_PrefabInstance: {fileID: 749911916}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &749911918
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 749911917}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cbd2e6fdffd07ca4d955372027697e50, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  numBgCount: 2
-  obstacleCount: 0
-  ObstacleLastPosition: {x: 0, y: 0, z: 0}
-  comboCheckers: []
-  obstacles: []
-  bgSpeed: 1
-  bgTime: 0
-  isFirst: 0
 --- !u!1 &762835522
 GameObject:
   m_ObjectHideFlags: 0
@@ -3148,36 +3092,8 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 492443966191368179, guid: aaa9da154c987e54585c3460ab1b4223, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 790460889}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aaa9da154c987e54585c3460ab1b4223, type: 3}
---- !u!1 &790460888 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 492443966191368179, guid: aaa9da154c987e54585c3460ab1b4223, type: 3}
-  m_PrefabInstance: {fileID: 790460887}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &790460889
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 790460888}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cbd2e6fdffd07ca4d955372027697e50, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  numBgCount: 2
-  obstacleCount: 0
-  ObstacleLastPosition: {x: 0, y: 0, z: 0}
-  comboCheckers: []
-  obstacles: []
-  bgSpeed: 1
-  bgTime: 0
-  isFirst: 1
 --- !u!1 &799752457
 GameObject:
   m_ObjectHideFlags: 0
@@ -4166,36 +4082,8 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 5678484918023670238, guid: cadb11221c6b35446a093553152604b3, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1050603046}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cadb11221c6b35446a093553152604b3, type: 3}
---- !u!1 &1050603045 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5678484918023670238, guid: cadb11221c6b35446a093553152604b3, type: 3}
-  m_PrefabInstance: {fileID: 1050603044}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1050603046
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1050603045}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cbd2e6fdffd07ca4d955372027697e50, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  numBgCount: 2
-  obstacleCount: 0
-  ObstacleLastPosition: {x: 0, y: 0, z: 0}
-  comboCheckers: []
-  obstacles: []
-  bgSpeed: 1
-  bgTime: 0
-  isFirst: 0
 --- !u!1 &1182114971
 GameObject:
   m_ObjectHideFlags: 0
@@ -5448,36 +5336,8 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 1046288864940811869, guid: 4a308b27bc897cd47aa4f0732eef89ac, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1723548908}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4a308b27bc897cd47aa4f0732eef89ac, type: 3}
---- !u!1 &1723548907 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1046288864940811869, guid: 4a308b27bc897cd47aa4f0732eef89ac, type: 3}
-  m_PrefabInstance: {fileID: 1723548906}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1723548908
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1723548907}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cbd2e6fdffd07ca4d955372027697e50, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  numBgCount: 2
-  obstacleCount: 0
-  ObstacleLastPosition: {x: 0, y: 0, z: 0}
-  comboCheckers: []
-  obstacles: []
-  bgSpeed: 1
-  bgTime: 0
-  isFirst: 0
 --- !u!1 &1759090218
 GameObject:
   m_ObjectHideFlags: 0
@@ -6052,36 +5912,8 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 7962242718624128435, guid: fd1ab660b75c91048a75274271d6183d, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1877571307}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fd1ab660b75c91048a75274271d6183d, type: 3}
---- !u!1 &1877571306 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7962242718624128435, guid: fd1ab660b75c91048a75274271d6183d, type: 3}
-  m_PrefabInstance: {fileID: 1877571305}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1877571307
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1877571306}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cbd2e6fdffd07ca4d955372027697e50, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  numBgCount: 2
-  obstacleCount: 0
-  ObstacleLastPosition: {x: 0, y: 0, z: 0}
-  comboCheckers: []
-  obstacles: []
-  bgSpeed: 1
-  bgTime: 0
-  isFirst: 0
 --- !u!1 &1888676286
 GameObject:
   m_ObjectHideFlags: 0

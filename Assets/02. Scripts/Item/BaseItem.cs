@@ -17,7 +17,7 @@ public class BaseItem : MonoBehaviour, IUseable
         Init();
     }
 
-    public virtual void Use()
+    public virtual void Use() // 사용하는 메서드가 없으면 이건 abstract로 넘겨주세요
     {
 
     }
