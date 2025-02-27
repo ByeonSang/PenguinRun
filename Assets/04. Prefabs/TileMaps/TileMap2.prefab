@@ -189,7 +189,7 @@ MonoBehaviour:
   ObstacleLastPosition: {x: 0, y: 0, z: 0}
   comboCheckers: []
   obstacles: []
-  bgSpeed: 2
+  bgSpeed: 4
   bgTime: 0
   isFirst: 0
 --- !u!61 &8904654585712231166
@@ -2683,7 +2683,7 @@ Transform:
   m_GameObject: {fileID: 5128688619359889028}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2922,7 +2922,7 @@ GameObject:
   - component: {fileID: 4210232870682296489}
   - component: {fileID: 1074878304404451031}
   - component: {fileID: 2519595060199005924}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Collision
   m_TagString: Ground
   m_Icon: {fileID: 0}

@@ -4156,7 +4156,8 @@ MonoBehaviour:
   obstacleCount: 0
   ObstacleLastPosition: {x: 0, y: 0, z: 0}
   comboCheckers: []
-  bgSpeed: 2
+  obstacles: []
+  bgSpeed: 4
   bgTime: 0
   isFirst: 0
 --- !u!61 &5776993938228499141

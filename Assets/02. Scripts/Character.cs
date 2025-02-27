@@ -8,6 +8,8 @@ using UnityEngine.UI;
 
 public class Character : MonoBehaviour
 {
+    public LayerMask whatisWall;
+
     protected CharAnimation charAnimation;
     protected Rigidbody2D _rigidbody;
     protected CircleCollider2D _circleCollider;
@@ -111,6 +113,15 @@ public class Character : MonoBehaviour
 
     private void Update()
     {
+        Vector2 rayPosition = (Vector2)transform.position + new Vector2(0f, 0.3f);
+        RaycastHit2D hit = Physics2D.Raycast(rayPosition, Vector2.right, 5f, whatisWall);
+        if(hit.collider != null)
+        {
+            if (hit.collider.CompareTag("Ground")&& !isDead)
+            {
+                Die();
+            }
+        }
         if (isDead)
         {
             if (deathCooldown <= 0)
@@ -244,7 +255,7 @@ public class Character : MonoBehaviour
 
         if (collision.gameObject.CompareTag("Cliff"))
         {
-            currentHealth = 0;
+            Die();
         }
     }
 
@@ -288,14 +299,20 @@ public class Character : MonoBehaviour
                 }
                 else
                 {
-                    isDead = true;
-                    if (charAnimation != null)
-                    {
-                        charAnimation.Dead();
-                        deathCooldown = 1f;
-                    }
+                    Die();
                 }
             }
+        }
+    }
+
+    private void Die()
+    {
+        currentHealth = 0;
+        isDead = true;
+        if (charAnimation != null)
+        {
+            charAnimation.Dead();
+            deathCooldown = 1f;
         }
     }
 
@@ -368,43 +385,9 @@ public class Character : MonoBehaviour
         EventSystem.current.SetSelectedGameObject(null);
     }
 
-
-
-    //public IEnumerator SpeedingCo(float speed)
-    //{
-    //    Debug.Log("켜진다.");
-    //    isSpeeding = true; //플레이어 장애물 파괴 모드     
-    //    foreach (Level level in levels)
-    //    {
-    //        level.bgSpeed += speed;
-    //    }
-    //    yield return new WaitForSeconds(4);
-    //    EndBuffEffect(speed);
-    //}
-
-    //private void EndBuffEffect(float speed)
-    //{
-    //    Debug.Log("꺼진다.");
-    //    isSpeeding = false;
-    //    foreach (Level level in levels)
-    //    {
-    //        level.bgSpeed -= speed;
-    //    }
-    //    speedCo = null;
-    //    Destroy(this.gameObject);
-    //}
-
-    //public void UseSpeed(float speed)
-    //{
-    //    if (speedCo == null)
-    //    {
-    //        speedCo = StartCoroutine(SpeedingCo(speed));//스피드 값은 언제든 변경 가능
-    //    }
-    //    else
-    //    {
-    //        StopAllCoroutines();
-    //        EndBuffEffect(speed);
-    //        speedCo = StartCoroutine(SpeedingCo(speed));
-    //    }
-    //}
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawLine((Vector2)transform.position + new Vector2(0,0.3f), new Vector2(transform.position.x + 5f, transform.position.y+0.3f));
+    }
 }

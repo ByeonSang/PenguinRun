@@ -157,8 +157,8 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
+  m_GravityScale: 2
+  m_Material: {fileID: 6200000, guid: 1065500e19aa7f74bb2214a104b26c78, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -167,7 +167,7 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 5
 --- !u!58 &1893621058905957751
 CircleCollider2D:
@@ -216,6 +216,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb11c3782031c89449e6981eea23f1da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  whatisWall:
+    serializedVersion: 2
+    m_Bits: 64
   currentLevel: {fileID: 0}
   isDead: 0
   JumpForce: 8.5
