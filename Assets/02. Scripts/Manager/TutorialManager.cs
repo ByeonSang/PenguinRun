@@ -1,16 +1,12 @@
 using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using System.Threading;
-using System;
 using UnityEngine.SceneManagement;
 
 public class TutorialManager : MonoBehaviour
 {
     // Start is called before the first frame update
     public TextMeshProUGUI coachingText;
-    private bool isTutorialActive = true; // 튜토리얼 진행 중 여부
     public GameObject tutorialPanel; // 텍스트 박스 UI 오브젝트
 
     public GameObject HpList;
@@ -19,12 +15,10 @@ public class TutorialManager : MonoBehaviour
     string[] twoJumpStr = { "이제 2단점프를 배워볼까?", "스페이스바를 두 번 눌러서 2단점프를 해보자!" };
     string[] itemStr = { "빨간색 눈송이는 Hp를 회복해!", "파란색 눈송이는 속도가 올라가고\n 장애물을 파괴하지!" };
 
-    private bool firstJump = false;
     private bool secondJump = false;
-   
+
     void Start()
     {
-     
         StartCoroutine(WriteText());
     }
 
@@ -84,7 +78,7 @@ public class TutorialManager : MonoBehaviour
         }
         yield return new WaitForSecondsRealtime(2f);
         tutorialPanel.SetActive(false);
-       
+
         Time.timeScale = 1f;
 
         tutorialPanel.SetActive(true);
@@ -113,12 +107,10 @@ public class TutorialManager : MonoBehaviour
 
     IEnumerator SecondJump()
     {
-        firstJump = false;
         secondJump = false;
 
         // 첫 번째 점프 감지
         yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space));
-        firstJump = true; // 첫 번째 점프 완료
         coachingText.text = "한 번 더!";
         tutorialPanel.SetActive(true);
 
@@ -138,9 +130,6 @@ public class TutorialManager : MonoBehaviour
                 yield break; // 두 번째 점프가 감지되면 종료
             }
         }
-
-        // 제한 시간 초과 시 초기화
-        firstJump = false;
     }
 
     string PerfectText()
@@ -148,7 +137,7 @@ public class TutorialManager : MonoBehaviour
         return coachingText.text = "잘했어!";
     }
 
-  
+
 
     public void ChangeScene()
     {
