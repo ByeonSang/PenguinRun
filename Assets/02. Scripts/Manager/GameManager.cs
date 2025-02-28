@@ -45,7 +45,6 @@ public class GameManager : MonoBehaviour
     }
 
 
-
     private void Update()
     {
         time-= Time.deltaTime;
@@ -82,12 +81,14 @@ public class GameManager : MonoBehaviour
     public void Restart()
     {
         Time.timeScale = 1;
+        time = 0;
         CurrentScore = 0;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public void Title()
     {
+        time = 0;
         SceneManager.LoadScene("StartScene");
     }
 
