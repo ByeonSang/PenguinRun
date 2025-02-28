@@ -89,11 +89,8 @@ public class GameManager : MonoBehaviour
     public void Title()
     {
         time = 0;
-<<<<<<< Updated upstream
-=======
         QuestManager.Instance.currentCombo = 0;
         CurrentScore = 0;
->>>>>>> Stashed changes
         SceneManager.LoadScene("StartScene");
     }
 
