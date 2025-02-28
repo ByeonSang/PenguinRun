@@ -24,6 +24,9 @@ public class Level : MonoBehaviour
     public void Update()
     {
 
+        if (GameManager.Instance.IsGameOver)
+            return;
+
         if ((bgTime >= 10)) // bgTime�� 5�̻��̸�
         {
             bgSpeed += 0.25f; // bground speed 0.5  ���

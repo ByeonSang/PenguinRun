@@ -74,13 +74,11 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
-        Time.timeScale = 0;
         IsGameOver = true;
     }
 
     public void Restart()
     {
-        Time.timeScale = 1;
         time = 0;
         QuestManager.Instance.currentCombo = 0;
         CurrentScore = 0;
