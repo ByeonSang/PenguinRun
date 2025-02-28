@@ -13,8 +13,8 @@ public class GameManager : MonoBehaviour
     public Character character { get; set; }
     private float time = 0f;
     private float speedDuration = 4f;
-    public int CurrentScore { get; set; } = 0;     // ÇöÀçÁ¡¼ö
-    public int BestScore { get; private set; } = 0; // ÃÖ´ëÁ¡¼ö
+    public int CurrentScore { get; set; } = 0;     // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    public int BestScore { get; private set; } = 0; // ï¿½Ö´ï¿½ï¿½ï¿½ï¿½ï¿½
 
     private float plusSpeed = 0;
     public float PlusSpeed
@@ -68,7 +68,7 @@ public class GameManager : MonoBehaviour
         if (BestScore <currentscore)
         {
             BestScore = currentscore;
-            PlayerPrefs.SetInt("BestScore", BestScore); // (ÀÌ¸§, °ª)
+            PlayerPrefs.SetInt("BestScore", BestScore); // (ï¿½Ì¸ï¿½, ï¿½ï¿½)
         }
     }
 
@@ -82,6 +82,7 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 1;
         time = 0;
+        QuestManager.Instance.currentCombo = 0;
         CurrentScore = 0;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
@@ -89,8 +90,8 @@ public class GameManager : MonoBehaviour
     public void Title()
     {
         time = 0;
-        QuestManager.Instance.currentCombo = 0;
         CurrentScore = 0;
+        QuestManager.Instance.currentCombo = 0;
         SceneManager.LoadScene("StartScene");
     }
 
