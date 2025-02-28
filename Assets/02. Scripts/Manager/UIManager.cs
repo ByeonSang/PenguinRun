@@ -9,11 +9,21 @@ public class UIManager : MonoBehaviour
 {
     public Action updateUI;
 
+
+
     static private UIManager instance;
+    private static bool _ShuttingDown = false; // 종료했을때 체크
+
     public static UIManager Instance
     {
         get
         {
+            if(_ShuttingDown)
+            {
+                Debug.Log($"[SingleTon] Instance {typeof(UIManager)} already destroyed. Returning null");
+                return null;
+            }
+
             if (instance == null)
             {
                 instance = (UIManager)GameObject.FindObjectOfType(typeof(UIManager));
@@ -37,7 +47,16 @@ public class UIManager : MonoBehaviour
     {
         DontDestroyOnLoad(gameObject);
     }
-    
 
+    private void OnApplicationQuit()
+    {
+        _ShuttingDown = true;
+    }
+
+    private void OnDestroy()
+    {
+        _ShuttingDown = true;
+
+    }
 
 }
