@@ -82,6 +82,7 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 1;
         time = 0;
+        QuestManager.Instance.currentCombo = 0;
         CurrentScore = 0;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
@@ -89,6 +90,7 @@ public class GameManager : MonoBehaviour
     public void Title()
     {
         time = 0;
+        QuestManager.Instance.currentCombo = 0;
         SceneManager.LoadScene("StartScene");
     }
 
