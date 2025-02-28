@@ -1,7 +1,4 @@
-using System.Collections;
 using System.Collections.Generic;
-using Unity.Collections.LowLevel.Unsafe;
-using UnityEditor.SceneManagement;
 using UnityEngine;
 
 public class Level : MonoBehaviour
@@ -12,11 +9,11 @@ public class Level : MonoBehaviour
 
     private ItemSpawner[] itemSpawners;
 
-    public List<ComboChecker> comboCheckers = new List<ComboChecker>(); 
+    public List<ComboChecker> comboCheckers = new List<ComboChecker>();
     public List<GameObject> obstacles = new List<GameObject>();
 
     public float bgSpeed;
-    public float bgTime =0f;
+    public float bgTime = 0f;
     BoxCollider2D collider;
     public bool isFirst;
     private void Awake()
@@ -32,15 +29,15 @@ public class Level : MonoBehaviour
             bgSpeed += 0.25f; // bground speed 0.5  ���
             bgTime = 0;
         }
-        
-        transform.position += Vector3.left * (bgSpeed+GameManager.Instance.PlusSpeed) * Time.deltaTime;
-        bgTime += 1f *Time.deltaTime;
+
+        transform.position += Vector3.left * (bgSpeed + GameManager.Instance.PlusSpeed) * Time.deltaTime;
+        bgTime += 1f * Time.deltaTime;
 
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-      
+
         if (collision.CompareTag("Looper"))
         {
             if (isFirst)
@@ -65,9 +62,9 @@ public class Level : MonoBehaviour
 
     }
 
-    public void ResetItem() 
+    public void ResetItem()
     {
-        foreach(ItemSpawner spawner in itemSpawners)
+        foreach (ItemSpawner spawner in itemSpawners)
         {
             spawner.SetItem();
         }
@@ -76,12 +73,12 @@ public class Level : MonoBehaviour
     public void ResetObstacles()
     {
         //리스트에 담아뒀던 콤보체커들의 콜라이더를 다시 활성화 시키고 리스트를 비워줌
-        foreach(ComboChecker combo in comboCheckers)
+        foreach (ComboChecker combo in comboCheckers)
         {
             combo.col.enabled = true;
         }
         comboCheckers.Clear();
-        foreach(GameObject obstacle in obstacles)
+        foreach (GameObject obstacle in obstacles)
         {
             obstacle.SetActive(true);
         }
@@ -89,4 +86,3 @@ public class Level : MonoBehaviour
     }
 
 }
- 
