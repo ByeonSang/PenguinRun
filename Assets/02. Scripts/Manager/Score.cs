@@ -1,9 +1,6 @@
 using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using TMPro;
-using UnityEditor.AnimatedValues;
-using Unity.VisualScripting;
+using UnityEngine;
 
 public class Score : MonoBehaviour
 {
@@ -40,7 +37,7 @@ public class Score : MonoBehaviour
     // 게임 오버 상태를 감지하고 결과 메뉴를 한 번만 실행하도록 설정
     private void Update()
     {
-        if (GameManager.Instance.IsGameOver && onResultMenu ==false)
+        if (GameManager.Instance.IsGameOver && onResultMenu == false)
         {
             SaveScore();
             UpdateUI();
@@ -101,12 +98,12 @@ public class Score : MonoBehaviour
         QuestManager quest = QuestManager.Instance;
         UIManager uiManager = UIManager.Instance;
 
-        if(quest != null)
+        if (quest != null)
             quest.successQuest = null;
-        
 
-        if(uiManager != null)
+
+        if (uiManager != null)
             uiManager.updateUI = null;
-        
+
     }
 }
