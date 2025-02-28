@@ -20,18 +20,12 @@ public class Score : MonoBehaviour
 
     private bool onResultMenu = false;
 
-
-    // UI 업데이트 이벤트에 UpdateUI() 등록
-    private void Awake()
-    {
-        QuestManager.Instance.successQuest += UpQuestSuccessPanel;
-    }
-
-
     // 게임 시작 시 초기화
     private void Start()
     {
-        UIManager.Instance.updateUI += UpdateUI;
+        QuestManager.Instance.successQuest = UpQuestSuccessPanel;
+        UIManager.Instance.updateUI = UpdateUI;
+
         Time.timeScale = 1;
         GameManager.Instance.IsGameOver = false;
         onResultMenu = false;
@@ -104,6 +98,15 @@ public class Score : MonoBehaviour
 
     private void OnDisable()
     {
-        UIManager.Instance.updateUI -= UpdateUI;
+        QuestManager quest = QuestManager.Instance;
+        UIManager uiManager = UIManager.Instance;
+
+        if(quest != null)
+            quest.successQuest = null;
+        
+
+        if(uiManager != null)
+            uiManager.updateUI = null;
+        
     }
 }

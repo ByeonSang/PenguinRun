@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class QuestManager : MonoBehaviour
 {
@@ -25,6 +26,12 @@ public class QuestManager : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene arg0, LoadSceneMode arg1)
+    {
+        StopAllCoroutines();
     }
 
     //1번 퀘스트 관련-----------------------------------------------
@@ -50,9 +57,10 @@ public class QuestManager : MonoBehaviour
         //도전과제 성공했다는 UI 오른쪽 밑에 띄우기
     }
 
-
-
-
+    private void OnDestroy()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
 
     //2번 퀘스트 관련-----------------------------------------------
 
